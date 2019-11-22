@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 # pylint: disable=C0111
+# pylint: disable=R0801
 # pylint: disable=R0904
 """
-Test wordpuzzle is_valid method on basic inputs.
+Test the word puzzle `is_valid` method on basic inputs.
 """
 
 import unittest
-from wordpuzzle.wordpuzzle import is_valid
+from utils.filters import is_valid
 
 
 class TestWordPuzzle(unittest.TestCase):

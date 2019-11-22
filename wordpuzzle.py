@@ -6,14 +6,14 @@ import argparse
 import logging
 import os.path
 import sys
-from wordpuzzle.wordpuzzle import is_valid
+from utils.filters import is_valid
 
 #
 # MAIN
 #
 if __name__ == '__main__':
 
-    __version__ = '1.0.0'
+    __version__ = '1.0.1'
 
     # setup command line parser
     PARSER = argparse.ArgumentParser(
@@ -25,15 +25,21 @@ if __name__ == '__main__':
         '-d',
         '--dictionary',
         help='dictionary to use in word search (default: dictionary/british',
-        type=argparse.FileType('r', encoding="utf-8"),
+        type=argparse.FileType(mode='r', encoding='utf-8'),
         default='dictionary/british')
     PARSER.add_argument('-s',
                         '--size',
                         help='minimum word size (default: 4)',
                         type=int,
                         default=4)
-    PARSER.add_argument('-m', '--mandatory', help='mandatory character')
-    PARSER.add_argument('-l', '--letters', help='letters to create words from')
+    PARSER.add_argument('-m',
+                        '--mandatory',
+                        help='mandatory character',
+                        required=True)
+    PARSER.add_argument('-l',
+                        '--letters',
+                        help='letters to create words from',
+                        required=True)
     PARSER.add_argument('-v',
                         '--verbose',
                         help='verbose output',
@@ -50,7 +56,7 @@ if __name__ == '__main__':
     LETTERS = list(ARGS.letters)  # split letters into a list
 
     # set logging level
-    logging.basicConfig(format="%(asctime)s %(message)s", level=logging.INFO)
+    logging.basicConfig(format='%(asctime)s %(message)s', level=logging.INFO)
     LOGGER = logging.getLogger(__name__)
     # DEBUG: show runtime variables
     if VERBOSE:
@@ -70,5 +76,3 @@ if __name__ == '__main__':
     LOGGER.debug('Mandatory: %s', MANDATORY)
     LOGGER.debug('Letters: %s', LETTERS)
     LOGGER.debug('Found %s words', COUNT)
-
-    sys.exit(0)

@@ -47,7 +47,7 @@ Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md) run the
 [YAPF](https://github.com/google/yapf) utility:
 
 ```bash
-yapf --style google --parallel -i main.py wordpuzzle/wordpuzzle.py tests/testwordpuzzle.py
+yapf --style google --parallel -i wordpuzzle.py tests/testwordpuzzle.py tests/__init__.py utils/__init__.py utils/filters.py
 ```
 
 Where:
@@ -60,13 +60,13 @@ Where:
 [Lint](https://www.pylint.org/) source:
 
 ```bash
-pylint3 main.py wordpuzzle/wordpuzzle.py tests/testwordpuzzle.py
+pylint wordpuzzle.py tests/testwordpuzzle.py tests/__init__.py utils/__init__.py utils/filters.py
 ```
 
 Run application with:
 
 ```bash
-python3 -m main -m c -l adevcrsoi
+python3 wordpuzzle.py -m c -l adevcrsoi
 ```
 
 ### Test application.

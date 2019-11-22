@@ -4,13 +4,8 @@
 
 .PHONY: check clean dist doc help run test
 
-SHELL	:= /bin/sh
-COMMA	:= ,
-EMPTY	:=
-SPACE	:= $(EMPTY) $(EMPTY)
 PYTHON	:= /usr/bin/python3
-
-SRCS	:= main.py wordpuzzle/wordpuzzle.py tests/testwordpuzzle.py
+SRCS	:= $(wildcard *.py **/*.py)
 
 all: check test run
 
@@ -46,12 +41,12 @@ test:
 	pytest -v tests/test*.py
 
 run:
-	$(PYTHON) -m main -h
-	$(PYTHON) -m main --version
-	$(PYTHON) -m main -m c -l adevcrsoi
+	$(PYTHON) wordpuzzle.py -h
+	$(PYTHON) wordpuzzle.py --version
+	$(PYTHON) wordpuzzle.py -m c -l adevcrsoi
 
 version:
-	$(PYTHON) -m main --version
+	$(PYTHON) wordpuzzle.py --version
 
 clean:
 	# clean generated artefacts
