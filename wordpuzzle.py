@@ -3,10 +3,10 @@
 """ Solve 9 Letter Word Puzzle. """
 
 import argparse
-import logging
 import os.path
 import sys
-from utils.filters import is_valid
+
+import utils.filters as utils
 
 #
 # MAIN
@@ -24,7 +24,7 @@ if __name__ == '__main__':
     PARSER.add_argument(
         '-d',
         '--dictionary',
-        help='dictionary to use in word search (default: dictionary/british',
+        help='dictionary to use in word search (default: dictionary/british)',
         type=argparse.FileType(mode='r', encoding='utf-8'),
         default='dictionary/british')
     PARSER.add_argument('-s',
@@ -40,39 +40,36 @@ if __name__ == '__main__':
                         '--letters',
                         help='letters to create words from',
                         required=True)
-    PARSER.add_argument('-v',
-                        '--verbose',
-                        help='verbose output',
-                        action='count')
     PARSER.add_argument('--version', action='version', version=__version__)
 
     # process command line arguments
     ARGS = PARSER.parse_args()
     PROG = PARSER.prog
-    VERBOSE = ARGS.verbose
     DICTIONARY = ARGS.dictionary
-    SIZE = ARGS.size
-    MANDATORY = ARGS.mandatory
-    LETTERS = list(ARGS.letters)  # split letters into a list
 
-    # set logging level
-    logging.basicConfig(format='%(asctime)s %(message)s', level=logging.INFO)
-    LOGGER = logging.getLogger(__name__)
-    # DEBUG: show runtime variables
-    if VERBOSE:
-        LOGGER.setLevel(logging.DEBUG)
+    # check input parameters
+    if utils.is_valid_size(ARGS.size):
+        SIZE = ARGS.size
+    else:
+        sys.exit(
+            "Invalid size. Expected size in range 1..9, got '{size}'.".format(
+                size=ARGS.size))
+
+    if utils.is_valid_mandatory(ARGS.mandatory):
+        MANDATORY = ARGS.mandatory.lower()
+    else:
+        sys.exit(
+            "Invalid mandatory character. Expected one alphabetic character, got '{mandatory}'."
+            .format(mandatory=ARGS.mandatory))
+
+    if utils.is_valid_letters(ARGS.letters):
+        LETTERS = list(ARGS.letters.lower())
+    else:
+        sys.exit(
+            "Invalid letters. Expected 9 alphabetic characters, got '{letters}'."
+            .format(letters=ARGS.letters))
 
     # read words in dictionary and print if valid
-    COUNT = 0
     for word in DICTIONARY:
-        if is_valid(SIZE, MANDATORY, LETTERS, list(word.strip())):
+        if utils.is_valid_word(SIZE, MANDATORY, LETTERS, list(word.strip())):
             print(word.strip())
-            COUNT += 1
-
-    LOGGER.debug('Program name: %s', PROG)
-    LOGGER.debug('Version: %s', __version__)
-    LOGGER.debug('Dictionary: %s', DICTIONARY.name)
-    LOGGER.debug('Size: %s', SIZE)
-    LOGGER.debug('Mandatory: %s', MANDATORY)
-    LOGGER.debug('Letters: %s', LETTERS)
-    LOGGER.debug('Found %s words', COUNT)

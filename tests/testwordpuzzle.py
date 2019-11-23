@@ -4,15 +4,15 @@
 # pylint: disable=R0801
 # pylint: disable=R0904
 """
-Test the word puzzle `is_valid` method on basic inputs.
+Test word puzzle validation functions.
 """
 
 import unittest
-from utils.filters import is_valid
+import utils.filters as utils
 
 
 class TestWordPuzzle(unittest.TestCase):
-    """ Tests is_valid function. """
+    """ Test word puzzle utility functions. """
 
     def setUp(self):
         self.letters = list('adevcrsoi')
@@ -21,23 +21,24 @@ class TestWordPuzzle(unittest.TestCase):
 
     def test_too_short(self):
         word = list('ice')
-        self.assertFalse(is_valid(self.size, self.mandatory, self.letters,
-                                  word))
+        self.assertFalse(
+            utils.is_valid_word(self.size, self.mandatory, self.letters, word))
         self.assertEqual(self.letters, list('adevcrsoi'))
 
     def test_too_long(self):
         word = list('adevcrsoia')
-        self.assertFalse(is_valid(self.size, self.mandatory, self.letters,
-                                  word))
+        self.assertFalse(
+            utils.is_valid_word(self.size, self.mandatory, self.letters, word))
         self.assertEqual(self.letters, list('adevcrsoi'))
 
     def test_valid(self):
         word = list('voice')
-        self.assertTrue(is_valid(self.size, self.mandatory, self.letters, word))
+        self.assertTrue(
+            utils.is_valid_word(self.size, self.mandatory, self.letters, word))
         self.assertEqual(self.letters, list('adevcrsoi'))
 
     def test_not_valid(self):
         word = list('voicedx')
-        self.assertFalse(is_valid(self.size, self.mandatory, self.letters,
-                                  word))
+        self.assertFalse(
+            utils.is_valid_word(self.size, self.mandatory, self.letters, word))
         self.assertEqual(self.letters, list('adevcrsoi'))

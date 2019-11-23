@@ -30,6 +30,7 @@ help:
 	@echo
 	@echo "deactivate"
 	@echo
+	$(PYTHON) wordpuzzle.py -h
 
 check:
 	# format code to googles style
