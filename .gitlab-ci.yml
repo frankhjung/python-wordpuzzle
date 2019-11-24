@@ -33,4 +33,3 @@ build:
     - pytest -v tests/test*.py
     - python wordpuzzle.py -h
     - python wordpuzzle.py --version
-    - python wordpuzzle.py -s 4 -m c -l adevcrsoi -d dictionary/british

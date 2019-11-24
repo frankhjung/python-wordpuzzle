@@ -4,6 +4,7 @@ build/
 *,cover
 cover
 .coverage
+dictionary
 dist/
 .DS_Store
 htmlcov/
@@ -15,6 +16,7 @@ public
 *.pyc
 __pycache__
 *.pyo
+.pytest_cache
 .Python
 README
 results/
@@ -23,3 +25,4 @@ results.html
 *.swp
 target/
 venv
+.vscode/

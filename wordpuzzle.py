@@ -24,9 +24,9 @@ if __name__ == '__main__':
     PARSER.add_argument(
         '-d',
         '--dictionary',
-        help='dictionary to use in word search (default: dictionary/british)',
+        help='dictionary to use in word search (default: dictionary)',
         type=argparse.FileType(mode='r', encoding='utf-8'),
-        default='dictionary/british')
+        default='dictionary')
     PARSER.add_argument('-s',
                         '--size',
                         help='minimum word size (default: 4)',
@@ -42,12 +42,9 @@ if __name__ == '__main__':
                         required=True)
     PARSER.add_argument('--version', action='version', version=__version__)
 
-    # process command line arguments
+    # process command line arguments and check they are all valid
     ARGS = PARSER.parse_args()
-    PROG = PARSER.prog
-    DICTIONARY = ARGS.dictionary
 
-    # check input parameters
     if utils.is_valid_size(ARGS.size):
         SIZE = ARGS.size
     else:
@@ -70,6 +67,6 @@ if __name__ == '__main__':
             .format(letters=ARGS.letters))
 
     # read words in dictionary and print if valid
-    for word in DICTIONARY:
+    for word in ARGS.dictionary:
         if utils.is_valid_word(SIZE, MANDATORY, LETTERS, list(word.strip())):
             print(word.strip())

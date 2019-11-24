@@ -81,6 +81,7 @@ pytest -v tests/test*.py
 
 These tools require Python 3.
 
+* [hypothesis](https://hypothesis.readthedocs.io/) - quickcheck style testing framework
 * [pylint](https://www.pylint.org/) - checks source files
 * [pytest](https://docs.pytest.org/) - unit tests
 * [venv](https://docs.python.org/library/venv.html) - manage this projects environment
@@ -88,6 +89,7 @@ These tools require Python 3.
 
 ## References
 
+* [Hypothesis](https://hypothesis.works/)
 * [PyTest](https://docs.pytest.org/)
 * [Python 3 Tutorial](https://docs.python.org/3/tutorial/)
 * [Python Code Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md)
@@ -95,4 +97,4 @@ These tools require Python 3.
 
 ## LICENSE
 
-See [LICENSE](./LICENSE)
+[GNU GPLv3 LICENSE](./LICENSE)
