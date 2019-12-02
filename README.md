@@ -52,13 +52,13 @@ yapf --style google --parallel -i wordpuzzle.py tests/testwordpuzzle.py tests/__
 
 Where:
 
-  - using Google style 
+  - using Google style
   - in place changes
 
 ### Lint Code
 
 [Lint](https://www.pylint.org/) source:
-
+bash
 ```bash
 pylint wordpuzzle.py tests/testwordpuzzle.py tests/__init__.py utils/__init__.py utils/filters.py
 ```
@@ -76,6 +76,23 @@ Testing using PyTest:
 ```bash
 pytest -v tests/test*.py
 ```
+
+## Run from Docker
+
+To run using my Docker image first install the default dictionary:
+
+```bash
+curl https://raw.githubusercontent.com/dwyl/english-words/master/words.txt -o dictionary
+```
+
+Then call the application using GNU make:
+
+```bash
+docker run --rm -t -v $PWD:/opt/workspace -u $(id -u):$(id -g) frankhjung/python:latest make run
+```
+
+This will call the `run` goal, which executes the application using the default
+dictionary.
 
 ## Tools Used
 

@@ -8,7 +8,7 @@ SRCS	:= $(wildcard *.py **/*.py)
 
 .PHONY: check clean dist doc help run test
 
-all: check test run
+all: check test
 
 help:
 	$(ECHO)
@@ -51,9 +51,6 @@ test:
 	pytest -v tests/test*.py
 
 run:
-	$(PYTHON) wordpuzzle.py -h
-
-exec:
 	$(PYTHON) wordpuzzle.py -m c -l adevcrsoi
 
 version:
