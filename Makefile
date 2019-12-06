@@ -61,7 +61,7 @@ clean:
 	$(RM) -rf cover
 	$(RM) -rf .coverage
 	$(RM) -rf public
-	$(RM) -rf __pycache__ wordpuzzle/__pycache__ tests/__pycache__
+	$(RM) -rf __pycache__ **/__pycache__
 	$(RM) -rf .pytest_cache
 	$(RM) -rf target
 	$(RM) -v MANIFEST
