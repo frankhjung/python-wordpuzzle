@@ -12,10 +12,10 @@ The following applies to Linux where the base installation contains both Python
 To initialise the virtual environment, `venv`:
 
 ```bash
-pip3 install virtualenv
+pip3 install -U virtualenv
 python3 -m virtualenv venv
 source venv/bin/activate
-pip3 install -r requirements.txt
+pip3 install -U -r requirements.txt
 ```
 
 To start the virtual environment:
@@ -35,7 +35,7 @@ deactivate
 Install and list packages:
 
 ```bash
-pip3 install -r requirements.txt
+pip3 install -U -r requirements.txt
 pip3 list
 pip3 freeze
 ```
@@ -52,13 +52,13 @@ yapf --style google --parallel -i wordpuzzle.py tests/testwordpuzzle.py tests/__
 
 Where:
 
-  - using Google style
-  - in place changes
+- using Google style
+- in place changes
 
 ### Lint Code
 
 [Lint](https://www.pylint.org/) source:
-bash
+
 ```bash
 pylint wordpuzzle.py tests/testwordpuzzle.py tests/__init__.py utils/__init__.py utils/filters.py
 ```
@@ -69,7 +69,7 @@ Run application with:
 python3 wordpuzzle.py -m c -l adevcrsoi
 ```
 
-### Test application.
+### Test application
 
 Testing using PyTest:
 
@@ -98,19 +98,19 @@ dictionary.
 
 These tools require Python 3.
 
-* [hypothesis](https://hypothesis.readthedocs.io/) - quickcheck style testing framework
-* [pylint](https://www.pylint.org/) - checks source files
-* [pytest](https://docs.pytest.org/) - unit tests
-* [venv](https://docs.python.org/library/venv.html) - manage this projects environment
-* [yapf](https://github.com/google/yapf) - format source files
+- [hypothesis](https://hypothesis.readthedocs.io/) - quickcheck style testing framework
+- [pylint](https://www.pylint.org/) - checks source files
+- [pytest](https://docs.pytest.org/) - unit tests
+- [venv](https://docs.python.org/library/venv.html) - manage t`his projects environment
+- [yapf](https://github.com/google/yapf) - format source files
 
 ## References
 
-* [Hypothesis](https://hypothesis.works/)
-* [PyTest](https://docs.pytest.org/)
-* [Python 3 Tutorial](https://docs.python.org/3/tutorial/)
-* [Python Code Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md)
-* [Virtual Environment Tutorial](https://realpython.com/python-virtual-environments-a-primer/)
+- [Hypothesis`](https://hypothesis.works/)
+- [PyTest](ht`tps://docs.pytest.org/)
+- [Python 3 Tutorial](https://docs.python.org/3/tutorial/)
+- [Python Code Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md)
+- [Virtual Environment Tutorial](https://realpython.com/python-virtual-environments-a-primer/)
 
 ## LICENSE
 

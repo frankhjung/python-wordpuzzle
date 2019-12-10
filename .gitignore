@@ -1,6 +1,7 @@
 *~
 *.bak
 build/
+.code-workspace
 *,cover
 cover
 .coverage

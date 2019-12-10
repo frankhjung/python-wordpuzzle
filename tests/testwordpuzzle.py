@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# coding: utf-8
+# -*- coding: utf-8 -*-
 # pylint: disable=C0111
 # pylint: disable=R0801
 # pylint: disable=R0904

@@ -1,12 +1,14 @@
 #!/usr/bin/env make
 
 ECHO	:= echo
+pip3	:= pip3
 PYTHON	:= python3
+SHELL	:= /bin/bash
 SRCS	:= $(wildcard *.py **/*.py)
 
 .DEFAULT_GOAL := help
 
-.PHONY: check clean dist doc help run test
+.PHONY: check clean dist doc help run setup test venv
 
 all: check test
 
@@ -21,7 +23,7 @@ help:
 	$(ECHO)
 	$(ECHO) "Initialise virtual environment (venv) with:"
 	$(ECHO)
-	$(ECHO) "pip3 install virtualenv; python3 -m virtualenv venv; source venv/bin/activate; pip3 install -r requirements.txt"
+	$(ECHO) "pip3 install -U virtualenv; python3 -m virtualenv venv; source venv/bin/activate; pip3 install -U -r requirements.txt"
 	$(ECHO)
 	$(ECHO) "Start virtual environment (venv) with:"
 	$(ECHO)
@@ -32,6 +34,12 @@ help:
 	$(ECHO) "deactivate"
 	$(ECHO)
 	$(PYTHON) wordpuzzle.py -h
+
+setup:
+	$(PIP) install -U virtualenv
+	$(PYTHON) -m virtualenv venv
+	source venv/bin/activate
+	$(PIP) install -U -r requirements.txt
 
 check:	tags style lint
 
