@@ -106,8 +106,8 @@ These tools require Python 3.
 
 ## References
 
-- [Hypothesis`](https://hypothesis.works/)
-- [PyTest](ht`tps://docs.pytest.org/)
+- [Hypothesis](https://hypothesis.works/)
+- [PyTest](https://docs.pytest.org/)
 - [Python 3 Tutorial](https://docs.python.org/3/tutorial/)
 - [Python Code Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md)
 - [Virtual Environment Tutorial](https://realpython.com/python-virtual-environments-a-primer/)
