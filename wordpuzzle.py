@@ -7,31 +7,38 @@ Solve 9 Letter Word Puzzle.
 import argparse
 import os.path
 import sys
+from functools import partial
 
 import utils.filters as utils
 
 
-def arg_test(test_arg, param):
-    """ Test if valid argument. """
-    if not test_arg(param):
+def arg_test(arg_test_func, param):
+    """ Test if valid argument.
+
+    Args:
+        arg_test_func (func): Function to test argument
+        param : Argument to test
+
+    Returns:
+        param : the validated argument
+
+    Raises:
+        ArgumentTypeError : if argument invalid
+
+    """
+    if not arg_test_func(param):
         raise argparse.ArgumentTypeError("{0} invalid value".format(param))
     return param
 
 
-def arg_size(size):
-    """ Validate size argument. """
-    return arg_test(utils.is_valid_size, size)
+#: Validate size argument
+arg_size = partial(arg_test, utils.is_valid_size)
 
+#: Validate mandatory argument
+arg_mandatory = partial(arg_test, utils.is_valid_mandatory)
 
-def arg_mandatory(mandatory):
-    """ Validate mandatory argument. """
-    return arg_test(utils.is_valid_mandatory, mandatory)
-
-
-def arg_letters(letters):
-    """ Validate letters argument. """
-    return arg_test(utils.is_valid_letters, letters)
-
+#: Validate letters argument
+arg_letters = partial(arg_test, utils.is_valid_letters)
 
 #
 # MAIN
