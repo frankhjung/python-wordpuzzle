@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-""" Utilities: Solve 9 Letter Word Puzzle. """
+"""
+Utilities: Solve 9 Letter Word Puzzle.
+"""
 
 
 def is_valid_size(size):

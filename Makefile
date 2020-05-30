@@ -1,13 +1,12 @@
 #!/usr/bin/env make
 
-PIP	:= pip3
+PIP		:= pip3
 PYTHON	:= python3
-SHELL	:= /bin/bash
 SRCS	:= $(wildcard *.py **/*.py)
 
 .DEFAULT_GOAL := help
 
-.PHONY: check clean dist doc help run setup test venv
+.PHONY: all check clean help run setup tags test version
 
 all: check test
 
@@ -47,10 +46,14 @@ tags:
 	ctags --recurse -o tags $(SRCS)
 
 style:
+	# sort imports
+	isort $(SRCS)
 	# format code to googles style
 	yapf --style google --parallel -i $(SRCS)
 
 lint:
+	# check with flake8
+	flake8 $(SRCS)
 	# check with pylint
 	pylint $(SRCS)
 

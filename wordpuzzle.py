@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-""" Solve 9 Letter Word Puzzle. """
+"""
+Solve 9 Letter Word Puzzle.
+"""
 
 import argparse
 import os.path
@@ -8,12 +10,35 @@ import sys
 
 import utils.filters as utils
 
+
+def arg_test(test_arg, param):
+    """ Test if valid argument. """
+    if not test_arg(param):
+        raise argparse.ArgumentTypeError("{0} invalid value".format(param))
+    return param
+
+
+def arg_size(size):
+    """ Validate size argument. """
+    return arg_test(utils.is_valid_size, size)
+
+
+def arg_mandatory(mandatory):
+    """ Validate mandatory argument. """
+    return arg_test(utils.is_valid_mandatory, mandatory)
+
+
+def arg_letters(letters):
+    """ Validate letters argument. """
+    return arg_test(utils.is_valid_letters, letters)
+
+
 #
 # MAIN
 #
 if __name__ == '__main__':
 
-    __version__ = '1.0.1'
+    __version__ = '1.1.0'
 
     # setup command line parser
     PARSER = argparse.ArgumentParser(
@@ -30,43 +55,26 @@ if __name__ == '__main__':
     PARSER.add_argument('-s',
                         '--size',
                         help='minimum word size (default: 4)',
-                        type=int,
+                        type=arg_size,
                         default=4)
     PARSER.add_argument('-m',
                         '--mandatory',
                         help='mandatory character',
-                        required=True)
+                        required=True,
+                        type=arg_mandatory)
     PARSER.add_argument('-l',
                         '--letters',
                         help='letters to create words from',
-                        required=True)
+                        required=True,
+                        type=arg_letters)
     PARSER.add_argument('--version', action='version', version=__version__)
 
     # process command line arguments and check they are all valid
     ARGS = PARSER.parse_args()
-
-    if utils.is_valid_size(ARGS.size):
-        SIZE = ARGS.size
-    else:
-        sys.exit(
-            "Invalid size. Expected size in range 1..9, got '{size}'.".format(
-                size=ARGS.size))
-
-    if utils.is_valid_mandatory(ARGS.mandatory):
-        MANDATORY = ARGS.mandatory.lower()
-    else:
-        sys.exit(
-            "Invalid value. Expected 1 mandatory alphabetic character, got '{mandatory}'."
-            .format(mandatory=ARGS.mandatory))
-
-    if utils.is_valid_letters(ARGS.letters):
-        LETTERS = list(ARGS.letters.lower())
-    else:
-        sys.exit(
-            "Invalid value. Expected 9 alphabetic characters, got '{letters}'.".
-            format(letters=ARGS.letters))
+    MANDATORY = ARGS.mandatory.lower()
+    LETTERS = list(ARGS.letters.lower())
 
     # read words in dictionary and print if valid
     for word in ARGS.dictionary:
-        if utils.is_valid_word(SIZE, MANDATORY, LETTERS, list(word.strip())):
+        if utils.is_valid_word(ARGS.size, MANDATORY, LETTERS, word.strip()):
             print(word.strip())

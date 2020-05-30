@@ -9,8 +9,10 @@ Test word puzzle validation functions.
 
 import unittest
 from string import ascii_letters
+
 from hypothesis import given
 from hypothesis.strategies import characters, integers, text
+
 import utils.filters as utils
 
 
