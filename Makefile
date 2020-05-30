@@ -1,7 +1,6 @@
 #!/usr/bin/env make
 
-ECHO	:= echo
-pip3	:= pip3
+PIP	:= pip3
 PYTHON	:= python3
 SHELL	:= /bin/bash
 SRCS	:= $(wildcard *.py **/*.py)
@@ -13,33 +12,33 @@ SRCS	:= $(wildcard *.py **/*.py)
 all: check test
 
 help:
-	$(ECHO)
-	$(ECHO) "Default goal: ${.DEFAULT_GOAL}"
-	$(ECHO) "  all:   check cover run test doc dist"
-	$(ECHO) "  check: check style and lint code"
-	$(ECHO) "  run:   run against test data"
-	$(ECHO) "  test:  run unit tests"
-	$(ECHO) "  clean: delete all generated files"
-	$(ECHO)
-	$(ECHO) "Initialise virtual environment (venv) with:"
-	$(ECHO)
-	$(ECHO) "pip3 install -U virtualenv; python3 -m virtualenv venv; source venv/bin/activate; pip3 install -U -r requirements.txt"
-	$(ECHO)
-	$(ECHO) "Start virtual environment (venv) with:"
-	$(ECHO)
-	$(ECHO) "source venv/bin/activate"
-	$(ECHO)
-	$(ECHO) "Deactivate with:"
-	$(ECHO)
-	$(ECHO) "deactivate"
-	$(ECHO)
-	$(PYTHON) wordpuzzle.py -h
+	@echo
+	@echo "Default goal: ${.DEFAULT_GOAL}"
+	@echo "  all:   check cover run test doc dist"
+	@echo "  check: check style and lint code"
+	@echo "  run:   run against test data"
+	@echo "  test:  run unit tests"
+	@echo "  clean: delete all generated files"
+	@echo
+	@echo "Initialise virtual environment (venv) with:"
+	@echo
+	@echo "pip3 install -U virtualenv; python3 -m virtualenv venv; source venv/bin/activate; pip3 install -U -r requirements.txt"
+	@echo
+	@echo "Start virtual environment (venv) with:"
+	@echo
+	@echo "source venv/bin/activate"
+	@echo
+	@echo "Deactivate with:"
+	@echo
+	@echo "deactivate"
+	@echo
+	@$(PYTHON) wordpuzzle.py -h
 
 setup:
-	$(PIP) install -U virtualenv
-	$(PYTHON) -m virtualenv venv
-	source venv/bin/activate
-	$(PIP) install -U -r requirements.txt
+	-$(PIP) install -U virtualenv
+	-$(PYTHON) -m virtualenv venv
+	-source venv/bin/activate
+	-$(PIP) install -U -r requirements.txt
 
 check:	tags style lint
 
@@ -66,14 +65,14 @@ version:
 
 clean:
 	# clean generated artefacts
-	$(RM) -rf cover
-	$(RM) -rf .coverage
-	$(RM) -rf public
-	$(RM) -rf __pycache__ **/__pycache__
-	$(RM) -rf .pytest_cache
-	$(RM) -rf target
-	$(RM) -v MANIFEST
-	$(RM) -v **/*.pyc **/*.pyo **/*.py,cover
-	$(RM) -v *.pyc *.pyo *.py,cover
+	-$(RM) -rf cover
+	-$(RM) -rf .coverage
+	-$(RM) -rf public
+	-$(RM) -rf __pycache__ **/__pycache__
+	-$(RM) -rf .pytest_cache
+	-$(RM) -rf target
+	-$(RM) -v MANIFEST
+	-$(RM) -v **/*.pyc **/*.pyo **/*.py,cover
+	-$(RM) -v *.pyc *.pyo *.py,cover
 
 #EOF

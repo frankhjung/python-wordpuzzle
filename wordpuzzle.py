@@ -20,7 +20,7 @@ if __name__ == '__main__':
         prog=os.path.basename(sys.argv[0]),
         usage='%(prog)s [options]',
         description='Solve 9 letter word puzzle.',
-        epilog='© 2019 Frank H Jung mailto:frank.jung@marlo.com.au')
+        epilog='© 2019-2020 Frank Jung mailto:frank.jung@marlo.com.au')
     PARSER.add_argument(
         '-d',
         '--dictionary',
@@ -56,15 +56,15 @@ if __name__ == '__main__':
         MANDATORY = ARGS.mandatory.lower()
     else:
         sys.exit(
-            "Invalid mandatory character. Expected one alphabetic character, got '{mandatory}'."
+            "Invalid value. Expected 1 mandatory alphabetic character, got '{mandatory}'."
             .format(mandatory=ARGS.mandatory))
 
     if utils.is_valid_letters(ARGS.letters):
         LETTERS = list(ARGS.letters.lower())
     else:
         sys.exit(
-            "Invalid letters. Expected 9 alphabetic characters, got '{letters}'."
-            .format(letters=ARGS.letters))
+            "Invalid value. Expected 9 alphabetic characters, got '{letters}'.".
+            format(letters=ARGS.letters))
 
     # read words in dictionary and print if valid
     for word in ARGS.dictionary:
