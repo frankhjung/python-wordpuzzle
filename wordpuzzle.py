@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Solve 9 Letter Word Puzzle.
@@ -52,7 +52,7 @@ if __name__ == '__main__':
         prog=os.path.basename(sys.argv[0]),
         usage='%(prog)s [options]',
         description='Solve 9 letter word puzzle.',
-        epilog='© 2019-2020 Frank Jung mailto:frank.jung@marlo.com.au')
+        epilog='© 2019-2021 Frank Jung mailto:frank.jung@marlo.com.au')
     PARSER.add_argument(
         '-d',
         '--dictionary',

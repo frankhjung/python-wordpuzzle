@@ -1,6 +1,6 @@
 #!/usr/bin/env make
 
-PIP		:= pip3
+PIP	:= pip3
 PYTHON	:= python3
 SRCS	:= $(wildcard *.py **/*.py)
 
@@ -34,10 +34,10 @@ help:
 	@$(PYTHON) wordpuzzle.py -h
 
 setup:
-	-$(PIP) install -U virtualenv
-	-$(PYTHON) -m virtualenv venv
-	-source venv/bin/activate
-	-$(PIP) install -U -r requirements.txt
+	$(PIP) install -U virtualenv
+	$(PYTHON) -m virtualenv venv
+	source venv/bin/activate
+	$(PIP) install -U -r requirements.txt
 
 check:	tags style lint
 
