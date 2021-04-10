@@ -1,0 +1,48 @@
+name: python-wordpuzzle
+
+on:
+  push:
+    branches:
+      - master
+      - 'feature/*'
+  schedule:
+    - cron: '0 0 * * *'  # daily
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -U -r requirements.txt
+          flake8 --version
+          pylint --version
+          yapf --version
+          echo isort $(isort --version-number)
+
+      - name: lint
+        run: |
+          isort --check --diff *.py tests/*.py utils/*.py
+          yapf --style google --diff --parallel -i *.py tests/*.py utils/*.py
+          flake8 *.py tests/*.py utils/*.py
+          pylint *.py tests/*.py utils/*.py
+
+      - name: tests
+        run: |
+          pytest -v tests/*.py
+
+      - name: example
+        run: |
+          python wordpuzzle.py -m c -l adevcrsoi
+          python wordpuzzle.py --version
+          python wordpuzzle.py --help
