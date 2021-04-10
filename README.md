@@ -7,6 +7,15 @@ This is an Python implementation of the 9 letter word puzzle.
 The following applies to Linux where the base installation contains both Python
 2 & 3.
 
+## Dictionary
+
+To build a English dictionary of valid words, use words from
+[wbritish-huge](http://wordlist.sourceforge.net/):
+
+```bash
+egrep '^[[:lower:]]+$' /usr/share/dict/british-english-huge > dictionary
+```
+
 ### Virtual Environment
 
 To initialise the virtual environment, `venv`:

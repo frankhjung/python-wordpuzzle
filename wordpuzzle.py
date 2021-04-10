@@ -45,14 +45,14 @@ arg_letters = partial(arg_test, utils.is_valid_letters)
 #
 if __name__ == '__main__':
 
-    __version__ = '1.1.0'
+    __version__ = '2.0.0'
 
     # setup command line parser
     PARSER = argparse.ArgumentParser(
         prog=os.path.basename(sys.argv[0]),
         usage='%(prog)s [options]',
         description='Solve 9 letter word puzzle.',
-        epilog='© 2019-2021 Frank Jung mailto:frank.jung@marlo.com.au')
+        epilog='© 2019-2021 Frank Jung mailto:frankhjung@linux.com')
     PARSER.add_argument(
         '-d',
         '--dictionary',

@@ -12,12 +12,12 @@ def is_valid_size(size):
 
 def is_valid_mandatory(mandatory):
     """ Must have 1 alphabetic character. """
-    return mandatory.isalpha() and len(mandatory) == 1
+    return mandatory.isalpha() and len(mandatory) == 1 and mandatory.islower()
 
 
 def is_valid_letters(letters):
     """ Must have 9 alphabetic characters. """
-    return letters.isalpha() and len(letters) == 9
+    return letters.isalpha() and len(letters) == 9 and letters.islower()
 
 
 def is_valid_word(size, mandatory, letters, word):

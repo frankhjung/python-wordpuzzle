@@ -5,7 +5,6 @@ build/
 *,cover
 cover
 .coverage
-dictionary
 dist/
 .DS_Store
 htmlcov/

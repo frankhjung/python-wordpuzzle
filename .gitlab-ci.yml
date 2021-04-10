@@ -1,18 +1,10 @@
-# This file is a template, and might need editing before it works on your project.
-# Official language image. Look for the different tagged releases at:
-# https://hub.docker.com/r/library/python/tags/
-image: python:3.7.5-slim
+---
 
-# Change pip's cache directory to be inside the project directory since we can
-# only cache local items.
+image: python:3.9.4-slim
+
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
 
-# Pip's cache doesn't store the python packages
-# https://pip.pypa.io/en/stable/reference/pip_install/#caching
-#
-# If you want to also cache the installed packages, you have to install
-# them in a virtualenv and cache it as well.
 cache:
   paths:
     - .cache/pip
@@ -23,13 +15,20 @@ before_script:
   - pip install virtualenv
   - virtualenv venv
   - source venv/bin/activate
-  - pip install -r requirements.txt
+  - pip install -U -r requirements.txt
+  - flake8 --version
+  - pylint --version
+  - yapf --version
+  - echo isort $(isort --version-number)
 
 build:
   stage: build
   script:
-    - yapf --style google --diff --parallel wordpuzzle.py tests/testwordpuzzle.py tests/__init__.py utils/__init__.py utils/filters.py
-    - pylint wordpuzzle.py tests/testwordpuzzle.py tests/__init__.py utils/__init__.py utils/filters.py
+    - isort --check --diff *.py tests/*.py utils/*.py
+    - yapf --style google --diff --parallel *.py tests/*.py utils/*.py
+    - flake8 *.py tests/*.py utils/*.py
+    - pylint *.py tests/*.py utils/*.py
     - pytest -v tests/test*.py
-    - python wordpuzzle.py -h
+    - python wordpuzzle.py -m c -l adevcrsoi
     - python wordpuzzle.py --version
+    - python wordpuzzle.py --help
