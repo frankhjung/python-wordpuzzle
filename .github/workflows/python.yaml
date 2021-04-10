@@ -6,7 +6,7 @@ on:
   push:
     branches:
       - master
-      - 'feature/*'
+      - 'feature*'
   schedule:
     - cron: '0 0 * * *'  # daily
 
