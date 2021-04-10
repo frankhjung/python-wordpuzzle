@@ -43,8 +43,11 @@ jobs:
         run: |
           pytest -v tests/test*.py
 
-      - name: run
-        run: |
-          python wordpuzzle.py -m c -l adevcrsoi
-          python wordpuzzle.py --version
-          python wordpuzzle.py --help
+      - name: run example
+        run: python wordpuzzle.py -m c -l adevcrsoi
+
+      - name: run version
+        run: python wordpuzzle.py --version
+
+      - name: run help
+        run: python wordpuzzle.py --help
