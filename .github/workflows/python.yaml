@@ -41,7 +41,7 @@ jobs:
 
       - name: tests
         run: |
-          pytest -v tests/*.py
+          pytest -v tests/test*.py
 
       - name: run
         run: |
