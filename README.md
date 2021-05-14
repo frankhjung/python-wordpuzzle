@@ -113,6 +113,10 @@ These tools require Python 3.
 - [venv](https://docs.python.org/library/venv.html) - manage t`his projects environment
 - [yapf](https://github.com/google/yapf) - format source files
 
+## LICENSE
+
+[GNU GPLv3 LICENSE](./LICENSE)
+
 ## References
 
 - [Hypothesis](https://hypothesis.works/)
@@ -121,6 +125,10 @@ These tools require Python 3.
 - [Python Code Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md)
 - [Virtual Environment Tutorial](https://realpython.com/python-virtual-environments-a-primer/)
 
-## LICENSE
+## Other Implementations
 
-[GNU GPLv3 LICENSE](./LICENSE)
+* [Haskell](https://gitlab.com/frankhjung1/haskell-wordpuzzle)
+* [Java](https://gitlab.com/frankhjung1/java-wordpuzzle)
+* [Kotlin](https://gitlab.com/frankhjung1/kotlin-wordpuzzle)
+* [Go](https://gitlab.com/frankhjung1/go-wordpuzzle)
+* [Python](https://gitlab.com/frankhjung1/python-wordpuzzle)
