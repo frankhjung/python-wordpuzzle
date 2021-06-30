@@ -4,18 +4,18 @@ PIP	:= pip3
 PYTHON	:= python3
 SRCS	:= $(wildcard *.py **/*.py)
 
-.DEFAULT_GOAL := help
+.DEFAULT_GOAL := default
 
 .PHONY: all check clean help run setup tags test version
 
-all: check test
+default: check test
 
 help:
 	@echo
 	@echo "Default goal: ${.DEFAULT_GOAL}"
 	@echo "  all:   check cover run test doc dist"
 	@echo "  check: check style and lint code"
-	@echo "  run:   run against test data"
+	@echo "  exec:  run against test data"
 	@echo "  test:  run unit tests"
 	@echo "  clean: delete all generated files"
 	@echo
@@ -60,8 +60,8 @@ lint:
 test:
 	pytest -v tests/test*.py
 
-run:
-	$(PYTHON) wordpuzzle.py -m c -l adevcrsoi
+exec:
+	$(PYTHON) wordpuzzle.py -l cadevrsoi
 
 version:
 	$(PYTHON) wordpuzzle.py --version

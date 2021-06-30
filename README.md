@@ -7,6 +7,26 @@ This is an Python implementation of the 9 letter word puzzle.
 The following applies to Linux where the base installation contains both Python
 2 & 3.
 
+To get program help call:
+
+```bash
+./wordpuzzle.py -h
+```
+
+Example call using parameters:
+
+```bash
+$ ./wordpuzzle.py -s 8 -l cadevrsoi 
+codrives
+covaried
+covaries
+discover
+divorces
+idocrase
+varicose
+varicosed
+```
+
 ## Dictionary
 
 To build a English dictionary of valid words, use words from
@@ -97,10 +117,10 @@ curl https://raw.githubusercontent.com/dwyl/english-words/master/words.txt -o di
 Then call the application using GNU make:
 
 ```bash
-docker run --rm -t -v $PWD:/opt/workspace -u $(id -u):$(id -g) frankhjung/python:latest make run
+docker run --rm -t -v $PWD:/opt/workspace -u $(id -u):$(id -g) frankhjung/python:latest make exec
 ```
 
-This will call the `run` goal, which executes the application using the default
+This will call the `exec` goal, which executes the application using the default
 dictionary.
 
 ## Tools Used

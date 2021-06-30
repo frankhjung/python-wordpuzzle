@@ -1,18 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Utilities: Solve 9 Letter Word Puzzle.
+Library: Solve 9 Letter Word Puzzle.
 """
-
-
-def is_valid_size(size):
-    """ Must have size in range from 1 to 9, inclusive. """
-    return 1 <= size <= 9
-
-
-def is_valid_mandatory(mandatory):
-    """ Must have 1 alphabetic character. """
-    return mandatory.isalpha() and len(mandatory) == 1 and mandatory.islower()
 
 
 def is_valid_letters(letters):
