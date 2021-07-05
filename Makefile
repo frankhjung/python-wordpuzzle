@@ -15,7 +15,7 @@ help:
 	@echo "Default goal: ${.DEFAULT_GOAL}"
 	@echo "  all:   check cover run test doc dist"
 	@echo "  check: check style and lint code"
-	@echo "  exec:  run against test data"
+	@echo "  run:   run against test data"
 	@echo "  test:  run unit tests"
 	@echo "  clean: delete all generated files"
 	@echo
@@ -49,7 +49,7 @@ style:
 	# sort imports
 	isort $(SRCS)
 	# format code to googles style
-	yapf --style google --parallel -i $(SRCS)
+	yapf --style google -pi $(SRCS)
 
 lint:
 	# check with flake8
@@ -58,10 +58,10 @@ lint:
 	pylint $(SRCS)
 
 test:
-	pytest -v tests/test*.py
+	pytest -v tests
 
 exec:
-	$(PYTHON) wordpuzzle.py -l cadevrsoi
+	$(PYTHON) wordpuzzle.py -s 7 -l cadevrsoi
 
 version:
 	$(PYTHON) wordpuzzle.py --version

@@ -41,10 +41,10 @@ jobs:
 
       - name: tests
         run: |
-          pytest -v tests/test*.py
+          pytest -v tests
 
       - name: run example
-        run: python wordpuzzle.py -s 8 -l cadevrsoi
+        run: python wordpuzzle.py -l cadevrsoi
 
       - name: run version
         run: python wordpuzzle.py --version

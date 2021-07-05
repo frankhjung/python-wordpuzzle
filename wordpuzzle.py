@@ -9,7 +9,7 @@ import os.path
 import sys
 from functools import partial
 
-import lib.filters as lib
+from lib.filters import is_valid_letters, is_valid_word
 
 
 def arg_test(arg_test_func, param):
@@ -32,14 +32,14 @@ def arg_test(arg_test_func, param):
 
 
 #: Validate letters argument
-arg_letters = partial(arg_test, lib.is_valid_letters)
+arg_letters = partial(arg_test, is_valid_letters)
 
 #
 # MAIN
 #
 if __name__ == '__main__':
 
-    __version__ = '2.1.0'
+    __version__ = '3.0.0'
 
     # setup command line parser
     PARSER = argparse.ArgumentParser(
@@ -53,27 +53,25 @@ if __name__ == '__main__':
         help='dictionary to use in word search (default: dictionary)',
         type=argparse.FileType(mode='r', encoding='utf-8'),
         default='dictionary')
-    PARSER.add_argument(
-        '-s',
-        '--size',
-        help='minimum word size (default: 4)',
-        type=int,
-        choices=range(1, 10),  # i.e. range 1..9
-        default=4)
+    PARSER.add_argument('-s',
+                        '--size',
+                        help='minimum word size (default: 4)',
+                        type=int,
+                        choices=[1, 2, 3, 4, 5, 6, 7, 8, 9],
+                        default=4)
     PARSER.add_argument(
         '-l',
         '--letters',
-        help='9 letters where first letter is mandatory for all words',
+        help='letters to create words from (mandatory is first letter)',
         required=True,
         type=arg_letters)
     PARSER.add_argument('--version', action='version', version=__version__)
 
     # process command line arguments and check they are all valid
     ARGS = PARSER.parse_args()
-    MANDATORY = ARGS.letters.lower()[0]
     LETTERS = list(ARGS.letters.lower())
 
     # read words in dictionary and print if valid
     for word in ARGS.dictionary:
-        if lib.is_valid_word(ARGS.size, MANDATORY, LETTERS, word.strip()):
+        if is_valid_word(ARGS.size, LETTERS, word.strip()):
             print(word.strip())

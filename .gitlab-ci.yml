@@ -23,12 +23,14 @@ before_script:
 
 build:
   stage: build
+  except:
+    - tags
   script:
     - isort --check --diff *.py tests/*.py lib/*.py
     - yapf --style google --diff --parallel *.py tests/*.py lib/*.py
     - flake8 *.py tests/*.py lib/*.py
     - pylint *.py tests/*.py lib/*.py
-    - pytest -v tests/test*.py
-    - python wordpuzzle.py -s 8 -l cadevrsoi
+    - pytest -v tests
+    - python wordpuzzle.py -l cadevrsoi
     - python wordpuzzle.py --version
     - python wordpuzzle.py --help

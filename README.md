@@ -76,7 +76,7 @@ Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md) run the
 [YAPF](https://github.com/google/yapf) utility:
 
 ```bash
-yapf --style google --parallel -i wordpuzzle.py tests/testwordpuzzle.py tests/__init__.py utils/__init__.py utils/filters.py
+yapf --style google -rpi wordpuzzle.py test lib
 ```
 
 Where:
@@ -89,24 +89,26 @@ Where:
 [Lint](https://www.pylint.org/) source:
 
 ```bash
-pylint wordpuzzle.py tests/testwordpuzzle.py tests/__init__.py utils/__init__.py utils/filters.py
-```
-
-Run application with:
-
-```bash
-python3 wordpuzzle.py -m c -l adevcrsoi
+pylint wordpuzzle.py **/*.py
 ```
 
 ### Test application
 
-Testing using PyTest:
+Test using [PyTest](https://docs.pytest.org/):
 
 ```bash
-pytest -v tests/test*.py
+pytest -v tests
 ```
 
-## Run from Docker
+### Run
+
+Run application with:
+
+```bash
+python3 ./wordpuzzle.py -s 8 -l cadevrsoi
+```
+
+## Build and run from Docker
 
 To run using my Docker image first install the default dictionary:
 
@@ -127,10 +129,10 @@ dictionary.
 
 These tools require Python 3.
 
-- [hypothesis](https://hypothesis.readthedocs.io/) - quickcheck style testing framework
+- [hypothesis](https://hypothesis.readthedocs.io/) - [QuickCheck](https://en.wikipedia.org/wiki/QuickCheck) style testing framework
 - [pylint](https://www.pylint.org/) - checks source files
 - [pytest](https://docs.pytest.org/) - unit tests
-- [venv](https://docs.python.org/library/venv.html) - manage t`his projects environment
+- [venv](https://docs.python.org/library/venv.html) - manage this projects environment
 - [yapf](https://github.com/google/yapf) - format source files
 
 ## LICENSE
