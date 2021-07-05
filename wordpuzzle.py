@@ -39,7 +39,7 @@ arg_letters = partial(arg_test, is_valid_letters)
 #
 if __name__ == '__main__':
 
-    __version__ = '3.0.0'
+    __version__ = '3.0.1'
 
     # setup command line parser
     PARSER = argparse.ArgumentParser(
@@ -53,12 +53,14 @@ if __name__ == '__main__':
         help='dictionary to use in word search (default: dictionary)',
         type=argparse.FileType(mode='r', encoding='utf-8'),
         default='dictionary')
-    PARSER.add_argument('-s',
-                        '--size',
-                        help='minimum word size (default: 4)',
-                        type=int,
-                        choices=[1, 2, 3, 4, 5, 6, 7, 8, 9],
-                        default=4)
+    PARSER.add_argument(
+        '-s',
+        '--size',
+        help='minimum word size (default: 4). Allowed values from 1 to 9.',
+        type=int,
+        choices=list(range(1, 10)),
+        default=4,
+        metavar='SIZE')
     PARSER.add_argument(
         '-l',
         '--letters',
