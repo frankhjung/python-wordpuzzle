@@ -7,13 +7,15 @@
 Test word puzzle validation functions.
 """
 
-import unittest
 from string import ascii_lowercase, ascii_uppercase
 
 from hypothesis import given
 from hypothesis.strategies import integers, text
 
 from lib.filters import is_valid_letters, is_valid_size, is_valid_word
+
+LETTERS = list('cadevrsoi')
+SIZE = 4
 
 
 @given(integers(min_value=1, max_value=9))
@@ -46,32 +48,17 @@ def test_not_valid_letters(letters):
     assert not is_valid_letters(letters)
 
 
-LETTERS = list('cadevrsoi')
+def test_not_valid_word_too_short():
+    assert not is_valid_word(SIZE, LETTERS, "ice")
 
 
-class TestWordPuzzle(unittest.TestCase):
-    """ Test word puzzle utility functions. """
+def test_not_valid_word_too_long():
+    assert not is_valid_word(SIZE, LETTERS, "adevcrsoia")
 
-    def setUp(self):
-        self.letters = LETTERS
-        self.size = 4
 
-    def test_not_valid_word_too_short(self):
-        word = list('ice')
-        assert not is_valid_word(self.size, self.letters, word)
-        assert self.letters == LETTERS
+def test_valid_word():
+    assert is_valid_word(SIZE, LETTERS, "voice")
 
-    def test_not_valid_word_too_long(self):
-        word = list('adevcrsoia')
-        assert not is_valid_word(self.size, self.letters, word)
-        assert self.letters == LETTERS
 
-    def test_valid_word(self):
-        word = list('voice')
-        assert is_valid_word(self.size, self.letters, word)
-        assert self.letters == LETTERS
-
-    def test_not_valid_word(self):
-        word = list('voicedx')
-        assert not is_valid_word(self.size, self.letters, word)
-        assert self.letters == LETTERS
+def test_not_valid_word():
+    assert not is_valid_word(SIZE, LETTERS, "voicedx")
