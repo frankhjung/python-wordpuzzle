@@ -39,7 +39,7 @@ arg_letters = partial(arg_test, is_valid_letters)
 #
 if __name__ == "__main__":
 
-    __version__ = "3.1.0"
+    __version__ = "3.1.1"
 
     # setup command line parser
     PARSER = argparse.ArgumentParser(
@@ -78,6 +78,6 @@ if __name__ == "__main__":
     LETTERS = list(ARGS.letters.lower())
 
     # read words in dictionary and print if valid
-    for word in ARGS.dictionary:
-        if is_valid_word(ARGS.size, LETTERS, word.strip()):
-            print(word.strip())
+    for word in ARGS.dictionary.read().splitlines():
+        if is_valid_word(ARGS.size, LETTERS, word):
+            print(word)
