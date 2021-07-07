@@ -22,7 +22,7 @@ def is_valid_word(size: int, letters: str, word: str) -> bool:
     The mandatory character is chosen as the first letter in the letters
     argument.
     """
-    if size > len(word) or len(word) > 9:
+    if len(word) < size or len(word) > 9:
         return False
 
     # mandatory letter must be in word
@@ -30,11 +30,11 @@ def is_valid_word(size: int, letters: str, word: str) -> bool:
         return False
 
     # test all letters in word are valid
-    working = letters[:]  # deep copy of str
-    return_code = True  # default if loop completes
+    working = list(letters[:])  # deep copy of letters
+    result = True  # default if loop completes
     for letter in word:
         if letter in working:
             working.remove(letter)
         else:
-            return_code = False
-    return return_code
+            result = False
+    return result

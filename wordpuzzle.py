@@ -58,7 +58,7 @@ if __name__ == "__main__":
     PARSER.add_argument(
         "-s",
         "--size",
-        help="minimum word size (default: 4). Allowed values from 1 to 9.",
+        help="minimum word size (default: 4). Valid sizes are from 1 to 9.",
         type=int,
         choices=list(range(1, 10)),
         default=4,
@@ -71,7 +71,9 @@ if __name__ == "__main__":
         required=True,
         type=arg_letters,
     )
-    PARSER.add_argument("--version", action="version", version=__version__)
+    PARSER.add_argument(
+        "--version", help="show version", action="version", version=__version__
+    )
 
     # process command line arguments and check they are all valid
     ARGS = PARSER.parse_args()

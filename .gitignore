@@ -16,13 +16,14 @@ public
 *.pyc
 __pycache__
 *.pyo
-.pytest_cache
+.pytest_cache/
 .Python
 README
 results/
 results.html
 .spyproject/
 *.swp
+tags
 target/
 venv
 .vscode/
