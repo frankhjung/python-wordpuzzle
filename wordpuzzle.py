@@ -71,7 +71,9 @@ if __name__ == "__main__":
         required=True,
         type=arg_letters,
     )
-    PARSER.add_argument("--version", action="version", version=__version__)
+    PARSER.add_argument(
+        "--version", help="show version", action="version", version=__version__
+    )
 
     # process command line arguments and check they are all valid
     ARGS = PARSER.parse_args()
