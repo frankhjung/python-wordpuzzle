@@ -15,8 +15,8 @@ from hypothesis.strategies import integers, text
 from lib.filters import is_valid_letters, is_valid_size, is_valid_word
 
 ALPHABET = list(ascii_lowercase)
-MANDATORY = 'c'
-LETTERS = list('adevrsoi')
+MANDATORY = "c"
+LETTERS = list("adevrsoi")
 SIZE = 4
 BAD_LETTERS = list(set(ALPHABET).difference(set(LETTERS)))
 

@@ -13,7 +13,7 @@ from lib.filters import is_valid_letters, is_valid_word
 
 
 def arg_test(arg_test_func, param):
-    """ Test if valid argument.
+    """Test if valid argument.
 
     Args:
         arg_test_func (func): Function to test argument
@@ -37,37 +37,41 @@ arg_letters = partial(arg_test, is_valid_letters)
 #
 # MAIN
 #
-if __name__ == '__main__':
+if __name__ == "__main__":
 
-    __version__ = '3.0.1'
+    __version__ = "3.1.0"
 
     # setup command line parser
     PARSER = argparse.ArgumentParser(
         prog=os.path.basename(sys.argv[0]),
-        usage='%(prog)s [options]',
-        description='Solve 9 letter word puzzle.',
-        epilog='© 2019-2021 Frank Jung mailto:frankhjung@linux.com')
+        usage="%(prog)s [options]",
+        description="Solve 9 letter word puzzle.",
+        epilog="© 2019-2021 Frank Jung mailto:frankhjung@linux.com",
+    )
     PARSER.add_argument(
-        '-d',
-        '--dictionary',
-        help='dictionary to use in word search (default: dictionary)',
-        type=argparse.FileType(mode='r', encoding='utf-8'),
-        default='dictionary')
+        "-d",
+        "--dictionary",
+        help="dictionary to use in word search (default: dictionary)",
+        type=argparse.FileType(mode="r", encoding="utf-8"),
+        default="dictionary",
+    )
     PARSER.add_argument(
-        '-s',
-        '--size',
-        help='minimum word size (default: 4). Allowed values from 1 to 9.',
+        "-s",
+        "--size",
+        help="minimum word size (default: 4). Allowed values from 1 to 9.",
         type=int,
         choices=list(range(1, 10)),
         default=4,
-        metavar='SIZE')
+        metavar="SIZE",
+    )
     PARSER.add_argument(
-        '-l',
-        '--letters',
-        help='letters to create words from (mandatory is first letter)',
+        "-l",
+        "--letters",
+        help="letters to create words from (mandatory is first letter)",
         required=True,
-        type=arg_letters)
-    PARSER.add_argument('--version', action='version', version=__version__)
+        type=arg_letters,
+    )
+    PARSER.add_argument("--version", action="version", version=__version__)
 
     # process command line arguments and check they are all valid
     ARGS = PARSER.parse_args()

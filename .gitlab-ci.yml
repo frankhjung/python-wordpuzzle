@@ -16,21 +16,21 @@ before_script:
   - virtualenv venv
   - source venv/bin/activate
   - pip install -U -r requirements.txt
+  - echo isort $(isort --version-number)
+  - black --version
   - flake8 --version
   - pylint --version
-  - yapf --version
-  - echo isort $(isort --version-number)
 
 build:
   stage: build
   except:
     - tags
   script:
-    - isort --check --diff *.py tests/*.py lib/*.py
-    - yapf --style google --diff --parallel *.py tests/*.py lib/*.py
-    - flake8 *.py tests/*.py lib/*.py
-    - pylint *.py tests/*.py lib/*.py
-    - pytest -v tests
+    - isort --check --diff *.py lib/*.py tests/*.py
+    - black --check *.py lib/*.py tests/*.py
+    - flake8 *.py lib/*.py tests/*.py
+    - pylint *.py lib/*.py tests/*.py
+    - pytest -v --cov-report term-missing --cov=lib tests
     - python wordpuzzle.py -l cadevrsoi
     - python wordpuzzle.py --version
     - python wordpuzzle.py --help

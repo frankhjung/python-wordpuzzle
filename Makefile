@@ -1,14 +1,16 @@
 #!/usr/bin/env make
 
+.PHONY: all check clean help run tags test version
+
+.DEFAULT_GOAL := default
+
 PIP	:= pip3
 PYTHON	:= python3
 SRCS	:= $(wildcard *.py **/*.py)
 
-.DEFAULT_GOAL := default
+default: check test 
 
-.PHONY: all check clean help run setup tags test version
-
-default: check test
+all:	default run
 
 help:
 	@echo
@@ -33,12 +35,6 @@ help:
 	@echo
 	@$(PYTHON) wordpuzzle.py -h
 
-setup:
-	$(PIP) install -U virtualenv
-	$(PYTHON) -m virtualenv venv
-	source venv/bin/activate
-	$(PIP) install -U -r requirements.txt
-
 check:	tags style lint
 
 tags:
@@ -49,7 +45,7 @@ style:
 	# sort imports
 	isort $(SRCS)
 	# format code to googles style
-	yapf --style google -pi $(SRCS)
+	black $(SRCS)
 
 lint:
 	# check with flake8
@@ -58,9 +54,9 @@ lint:
 	pylint $(SRCS)
 
 test:
-	pytest -v tests
+	pytest -v --cov-report term-missing --cov=lib tests
 
-exec:
+run:
 	$(PYTHON) wordpuzzle.py -s 7 -l cadevrsoi
 
 version:
