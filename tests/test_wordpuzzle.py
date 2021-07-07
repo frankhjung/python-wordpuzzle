@@ -7,58 +7,75 @@
 Test word puzzle validation functions.
 """
 
-from string import ascii_lowercase, ascii_uppercase
+from string import ascii_lowercase, printable
 
 from hypothesis import given
 from hypothesis.strategies import integers, text
 
 from lib.filters import is_valid_letters, is_valid_size, is_valid_word
 
-LETTERS = list('cadevrsoi')
+ALPHABET = list(ascii_lowercase)
+MANDATORY = 'c'
+LETTERS = list('adevrsoi')
 SIZE = 4
+BAD_LETTERS = list(set(ALPHABET).difference(set(LETTERS)))
 
 
 @given(integers(min_value=1, max_value=9))
-def test_valid_size(size):
+def test_valid_size(size: int) -> None:
     assert is_valid_size(size)
 
 
 @given(integers(min_value=10))
-def test_size_too_large(size):
+def test_size_too_large(size: int) -> None:
     assert not is_valid_size(size)
 
 
 @given(integers(max_value=0))
-def test_size_to_small(size):
+def test_size_to_small(size: int) -> None:
     assert not is_valid_size(size)
 
 
+@given(text(min_size=1, max_size=SIZE - 1, alphabet=list(ascii_lowercase)))
+def test_too_few_letters(letters: str) -> None:
+    assert not is_valid_letters(letters)
+
+
 @given(text(min_size=9, max_size=9, alphabet=list(ascii_lowercase)))
-def test_valid_letters(letters):
+def test_valid_letters(letters: str) -> None:
     assert is_valid_letters(letters)
 
 
 @given(text(min_size=10, max_size=30, alphabet=list(ascii_lowercase)))
-def test_too_many_letters(letters):
+def test_too_many_letters(letters: str) -> None:
     assert not is_valid_letters(letters)
 
 
-@given(text(max_size=9, alphabet=list(ascii_uppercase)))
-def test_not_valid_letters(letters):
-    assert not is_valid_letters(letters)
+@given(text(min_size=9, max_size=9, alphabet=list(printable)))
+def test_not_valid_letters_printables(letters: str) -> None:
+    assert not is_valid_letters(MANDATORY.upper() + letters)
 
 
-def test_not_valid_word_too_short():
-    assert not is_valid_word(SIZE, LETTERS, "ice")
+@given(text(min_size=9, max_size=9, alphabet=list(LETTERS)))
+def test_not_valid_letters_mixedcase(letters: str) -> None:
+    assert not is_valid_letters(MANDATORY.upper() + letters)
 
 
-def test_not_valid_word_too_long():
-    assert not is_valid_word(SIZE, LETTERS, "adevcrsoia")
+@given(text(min_size=1, max_size=SIZE - 1, alphabet=LETTERS))
+def test_not_valid_word_too_short(word: str) -> None:
+    assert not is_valid_word(SIZE, LETTERS, word)
 
 
-def test_valid_word():
-    assert is_valid_word(SIZE, LETTERS, "voice")
+@given(text(min_size=9, alphabet=LETTERS))
+def test_not_valid_word_too_long(word: str) -> None:
+    assert not is_valid_word(SIZE, LETTERS, word)
 
 
-def test_not_valid_word():
-    assert not is_valid_word(SIZE, LETTERS, "voicedx")
+@given(text(min_size=SIZE, max_size=8, alphabet=LETTERS))
+def test_valid_words(word: str) -> None:
+    assert not is_valid_word(SIZE, LETTERS, MANDATORY + word)
+
+
+@given(text(min_size=SIZE, alphabet=BAD_LETTERS))
+def test_not_valid_words(word: str) -> None:
+    assert not is_valid_word(SIZE, LETTERS, word)
