@@ -29,7 +29,7 @@ jobs:
       #   path: venv
       #   key: $GITHUB_REF
 
-      - name: requirements
+      - name: setup
         run: |
           python -m pip install --upgrade pip virtualenv
           python -m virtualenv venv
@@ -40,7 +40,7 @@ jobs:
           flake8 --version
           pylint --version
 
-      - name: validate
+      - name: check
         run: |
           source venv/bin/activate
           isort --check --diff *.py lib/*.py tests/*.py
