@@ -45,7 +45,7 @@ style:
 	# sort imports
 	isort $(SRCS)
 	# format code to googles style
-	black $(SRCS)
+	black -q $(SRCS)
 
 lint:
 	# check with flake8
