@@ -8,7 +8,7 @@ PIP	:= pip3
 PYTHON	:= python3
 SRCS	:= $(wildcard *.py **/*.py)
 
-default: check test 
+default: check test
 
 all:	default run
 

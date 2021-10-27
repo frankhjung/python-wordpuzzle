@@ -77,9 +77,10 @@ if __name__ == "__main__":
 
     # process command line arguments and check they are all valid
     ARGS = PARSER.parse_args()
+    SIZE = int(ARGS.size)
     LETTERS = list(ARGS.letters.lower())
+    DICTIONARY = ARGS.dictionary.read().splitlines()
 
     # read words in dictionary and print if valid
-    for word in ARGS.dictionary.read().splitlines():
-        if is_valid_word(ARGS.size, LETTERS, word):
-            print(word)
+    words = filter(lambda word: is_valid_word(SIZE, LETTERS, word), DICTIONARY)
+    print(*words, sep="\n")

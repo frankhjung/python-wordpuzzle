@@ -16,7 +16,7 @@ To get program help call:
 Example call using parameters:
 
 ```bash
-$ ./wordpuzzle.py -s 8 -l cadevrsoi 
+$ ./wordpuzzle.py -s 8 -l cadevrsoi
 codrives
 covaried
 covaries
@@ -71,8 +71,14 @@ pip3 freeze
 
 ### Format Code
 
-To format code to the [Google Python Code
-Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md) run the
+Use [black](https://github.com/psf/black) to format code:
+
+```bash
+black wordpuzzle.py **/*.py
+```
+
+An alternative code formatter using [Google Python Code
+Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md) is the
 [YAPF](https://github.com/google/yapf) utility:
 
 ```bash
@@ -149,8 +155,8 @@ These tools require Python 3.
 
 ## Other Implementations
 
-* [Haskell](https://gitlab.com/frankhjung1/haskell-wordpuzzle)
-* [Java](https://gitlab.com/frankhjung1/java-wordpuzzle)
-* [Kotlin](https://gitlab.com/frankhjung1/kotlin-wordpuzzle)
-* [Go](https://gitlab.com/frankhjung1/go-wordpuzzle)
-* [Python](https://gitlab.com/frankhjung1/python-wordpuzzle)
+- [Haskell](https://gitlab.com/frankhjung1/haskell-wordpuzzle)
+- [Java](https://gitlab.com/frankhjung1/java-wordpuzzle)
+- [Kotlin](https://gitlab.com/frankhjung1/kotlin-wordpuzzle)
+- [Go](https://gitlab.com/frankhjung1/go-wordpuzzle)
+- [Python](https://gitlab.com/frankhjung1/python-wordpuzzle)
