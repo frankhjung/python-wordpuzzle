@@ -43,15 +43,15 @@ jobs:
       - name: check
         run: |
           source venv/bin/activate
-          isort --check --diff *.py lib/*.py tests/*.py
-          black --check *.py lib/*.py tests/*.py
-          flake8 *.py lib/*.py tests/*.py
-          pylint *.py lib/*.py tests/*.py
+          isort --check --diff *.py library/*.py tests/*.py
+          black --check *.py library/*.py tests/*.py
+          flake8 *.py library/*.py tests/*.py
+          pylint *.py library/*.py tests/*.py
 
       - name: tests
         run: |
           source venv/bin/activate
-          pytest -v --cov-report term-missing --cov=lib tests
+          pytest -v --cov-report term-missing --cov=library tests
 
       - name: run example
         run: python wordpuzzle.py -l cadevrsoi

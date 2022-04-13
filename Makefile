@@ -23,7 +23,7 @@ help:
 	@echo
 	@echo "Initialise virtual environment (venv) with:"
 	@echo
-	@echo "pip3 install -U virtualenv; python3 -m virtualenv venv; source venv/bin/activate; pip3 install -U -r requirements.txt"
+	@echo "pip3 install -U virtualenv; python3 -m virtualenv venv; source venv/bin/activate; pip3 install -Ur requirements.txt"
 	@echo
 	@echo "Start virtual environment (venv) with:"
 	@echo
@@ -54,7 +54,7 @@ lint:
 	pylint $(SRCS)
 
 test:
-	pytest -v --cov-report term-missing --cov=lib tests
+	pytest -v --cov-report term-missing --cov=library tests
 
 run:
 	$(PYTHON) wordpuzzle.py -s 7 -l cadevrsoi

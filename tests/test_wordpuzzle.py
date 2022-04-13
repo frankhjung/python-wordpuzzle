@@ -12,7 +12,7 @@ from string import ascii_lowercase, printable
 from hypothesis import given
 from hypothesis.strategies import integers, text
 
-from lib.filters import is_valid_letters, is_valid_size, is_valid_word
+from library.filters import is_valid_letters, is_valid_size, is_valid_word
 
 ALPHABET = list(ascii_lowercase)
 MANDATORY = "c"

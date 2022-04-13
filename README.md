@@ -4,8 +4,7 @@ This is an Python implementation of the 9 letter word puzzle.
 
 ## Quick Start
 
-The following applies to Linux where the base installation contains both Python
-2 & 3.
+This project is built using Python 3.9.12.
 
 To get program help call:
 
@@ -44,7 +43,7 @@ To initialise the virtual environment, `venv`:
 pip3 install -U virtualenv
 python3 -m virtualenv venv
 source venv/bin/activate
-pip3 install -U -r requirements.txt
+pip3 install -Ur requirements.txt
 ```
 
 To start the virtual environment:
@@ -64,38 +63,29 @@ deactivate
 Install and list packages:
 
 ```bash
-pip3 install -U -r requirements.txt
+pip3 install -Ur requirements.txt
 pip3 list
 pip3 freeze
 ```
 
 ### Format Code
 
-Use [black](https://github.com/psf/black) to format code:
+To format code formatter using [Google Python Code
+Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md) using
+[black](https://github.com/psf/black):
 
 ```bash
-black wordpuzzle.py **/*.py
+black *.py library/*.py tests/*.py
 ```
-
-An alternative code formatter using [Google Python Code
-Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md) is the
-[YAPF](https://github.com/google/yapf) utility:
-
-```bash
-yapf --style google -rpi wordpuzzle.py test lib
-```
-
-Where:
-
-- using Google style
-- in place changes
 
 ### Lint Code
 
-[Lint](https://www.pylint.org/) source:
+Lint source files using both [flake8](https://github.com/pycqa/flake8) and
+[Pylint](https://www.pylint.org/):
 
 ```bash
-pylint wordpuzzle.py **/*.py
+flake8 *.py library/*.py tests/*.py
+pylint *.py library/*.py tests/*.py
 ```
 
 ### Test application
@@ -103,7 +93,7 @@ pylint wordpuzzle.py **/*.py
 Test using [PyTest](https://docs.pytest.org/):
 
 ```bash
-pytest -v tests
+pytest -v --cov-report term-missing --cov=library tests
 ```
 
 ### Run
@@ -111,7 +101,7 @@ pytest -v tests
 Run application with:
 
 ```bash
-python3 ./wordpuzzle.py -s 8 -l cadevrsoi
+python3 wordpuzzle.py -s 7 -l cadevrsoi
 ```
 
 ## Build and run from Docker
@@ -135,11 +125,12 @@ dictionary.
 
 These tools require Python 3.
 
+- [black](https://github.com/psf/black) - format source files
+- [flake8](https://github.com/pycqa/flake8) - checks source files
 - [hypothesis](https://hypothesis.readthedocs.io/) - [QuickCheck](https://en.wikipedia.org/wiki/QuickCheck) style testing framework
 - [pylint](https://www.pylint.org/) - checks source files
 - [pytest](https://docs.pytest.org/) - unit tests
 - [venv](https://docs.python.org/library/venv.html) - manage this projects environment
-- [yapf](https://github.com/google/yapf) - format source files
 
 ## LICENSE
 

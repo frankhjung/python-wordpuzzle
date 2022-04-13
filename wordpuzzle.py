@@ -9,7 +9,7 @@ import os.path
 import sys
 from functools import partial
 
-from lib.filters import is_valid_letters, is_valid_word
+from library.filters import is_valid_letters, is_valid_word
 
 
 def arg_test(arg_test_func, param):
@@ -27,7 +27,7 @@ def arg_test(arg_test_func, param):
 
     """
     if not arg_test_func(param):
-        raise argparse.ArgumentTypeError("{0} invalid value".format(param))
+        raise argparse.ArgumentTypeError(f"{param} invalid value")
     return param
 
 
@@ -61,15 +61,15 @@ if __name__ == "__main__":
         help="minimum word size (default: 4). Valid sizes are from 1 to 9.",
         type=int,
         choices=list(range(1, 10)),
-        default=4,
         metavar="SIZE",
+        default=4,
     )
     PARSER.add_argument(
         "-l",
         "--letters",
         help="letters to create words from (mandatory is first letter)",
-        required=True,
         type=arg_letters,
+        required=True,
     )
     PARSER.add_argument(
         "--version", help="show version", action="version", version=__version__
@@ -79,8 +79,10 @@ if __name__ == "__main__":
     ARGS = PARSER.parse_args()
     SIZE = int(ARGS.size)
     LETTERS = list(ARGS.letters.lower())
-    DICTIONARY = ARGS.dictionary.read().splitlines()
+    DICT = ARGS.dictionary.read().splitlines()
 
-    # read words in dictionary and print if valid
-    words = filter(lambda word: is_valid_word(SIZE, LETTERS, word), DICTIONARY)
-    print(*words, sep="\n")
+    # read in dictionary and print word if valid
+    print(
+        *list(filter(lambda word: is_valid_word(SIZE, LETTERS, word), DICT)),
+        sep="\n",
+    )

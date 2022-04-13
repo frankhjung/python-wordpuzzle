@@ -15,7 +15,7 @@ def is_valid_letters(letters: str) -> bool:
     return letters.isalpha() and len(letters) == 9 and letters.islower()
 
 
-def is_valid_word(size: int, letters: [str], word: str) -> bool:
+def is_valid_word(size: int, letters: str, word: str) -> bool:
     """Check that a dictionary word only contains valid letters
     and is of the correct size.
 
