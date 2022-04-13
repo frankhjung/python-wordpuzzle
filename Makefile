@@ -4,8 +4,9 @@
 
 .DEFAULT_GOAL := default
 
-PIP	:= pip3
-PYTHON	:= python3
+CTAGS	:= $(shell which ctags)
+PIP	:= $(shell which pip3)
+PYTHON	:= $(shell which python3)
 SRCS	:= $(wildcard *.py **/*.py)
 
 default: check test
@@ -38,8 +39,10 @@ help:
 check:	tags style lint
 
 tags:
-	# build python tags
+ifdef CTAGS
+	# build ctags for vim
 	ctags --recurse -o tags $(SRCS)
+endif
 
 style:
 	# sort imports
