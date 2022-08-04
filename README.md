@@ -1,6 +1,6 @@
-# python-wordpuzzle
+# Word Puzzle Python Solver
 
-This is an Python implementation of the 9 letter word puzzle.
+This is a Python implementation of the 9-letter word puzzle.
 
 ## Quick Start
 
@@ -28,7 +28,7 @@ varicosed
 
 ## Dictionary
 
-To build a English dictionary of valid words, use words from
+To build an English dictionary of valid words, use words from
 [wbritish-huge](http://wordlist.sourceforge.net/):
 
 ```bash
@@ -102,6 +102,15 @@ Run application with:
 
 ```bash
 python3 wordpuzzle.py -s 7 -l cadevrsoi
+```
+
+### Documentation
+
+Get [pydoc](https://docs.python.org/3/library/pydoc.html) using:
+
+```bash
+pydoc wordpuzzle
+pydoc library.filters
 ```
 
 ## Build and run from Docker

@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 """
 Library: Solve 9 Letter Word Puzzle.
 """
@@ -11,18 +10,18 @@ def is_valid_size(size: int) -> bool:
 
 
 def is_valid_letters(letters: str) -> bool:
-    """Must have 9 alphabetic characters."""
+    """Must have 9 alphabetic, lowercase characters."""
     return letters.isalpha() and len(letters) == 9 and letters.islower()
 
 
-def is_valid_word(size: int, letters: str, word: str) -> bool:
+def is_valid_word(size: int, letters: list, word: str) -> bool:
     """Check that a dictionary word only contains valid letters
     and is of the correct size.
 
-    The mandatory character is chosen as the first letter in the letters
-    argument.
+    The mandatory character is chosen as the first letter in the
+    list of letters argument.
     """
-    if len(word) < size or len(word) > 9:
+    if not size <= len(word) < 9:
         return False
 
     # mandatory letter must be in word
