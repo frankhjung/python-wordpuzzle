@@ -6,32 +6,18 @@ Solve 9 Letter Word Puzzle.
 import argparse
 import os.path
 import sys
-from functools import partial
 
 from library.filters import is_valid_letters, is_valid_word
 
 
-def arg_test(arg_test_func, param):
-    """Test if valid argument.
+def alphabetic_letters(value: str) -> str:
+    """Valid only if 9 lowercase alphabetic characters."""
+    if not is_valid_letters(value):
+        raise argparse.ArgumentTypeError(
+            f"'{value}' not 9 lowercase alphabetic characters"
+        )
+    return value
 
-    Args:
-        arg_test_func (func): Function to test argument
-        param : Argument to test
-
-    Returns:
-        param : the validated argument
-
-    Raises:
-        ArgumentTypeError : if argument invalid
-    """
-    if not arg_test_func(param):
-        raise argparse.ArgumentTypeError(f"{param} invalid value")
-
-    return param
-
-
-#: Validate letters argument
-arg_letters = partial(arg_test, is_valid_letters)
 
 #
 # MAIN
@@ -66,8 +52,8 @@ if __name__ == "__main__":
     PARSER.add_argument(
         "-l",
         "--letters",
-        help="letters to create words from (mandatory is first letter)",
-        type=arg_letters,
+        help="letters to make words, where the mandatory is first letter)",
+        type=alphabetic_letters,
         required=True,
     )
     PARSER.add_argument(
@@ -77,11 +63,8 @@ if __name__ == "__main__":
     # process command line arguments and check they are all valid
     ARGS = PARSER.parse_args()
     SIZE = int(ARGS.size)
-    LETTERS = list(ARGS.letters.lower())
+    LETTERS = list(ARGS.letters)
     DICT = ARGS.dictionary.read().splitlines()
 
     # read in dictionary and print word if valid
-    print(
-        *list(filter(lambda word: is_valid_word(SIZE, LETTERS, word), DICT)),
-        sep="\n",
-    )
+    list(map(print, filter(lambda word: is_valid_word(SIZE, LETTERS, word), DICT)))

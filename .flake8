@@ -1,0 +1,6 @@
+[flake8]
+# use blacks default line length
+# see https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html
+max-line-length = 88
+select = C,E,F,W,B,B950
+extend-ignore = E203, E501

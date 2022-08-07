@@ -130,6 +130,47 @@ docker run --rm -t -v $PWD:/opt/workspace -u $(id -u):$(id -g) frankhjung/python
 This will call the `exec` goal, which executes the application using the default
 dictionary.
 
+## Partial functions
+
+In an older commit,
+[4c3e0acf](https://gitlab.com/frankhjung1/python-wordpuzzle/-/tree/4c3e0acff3dd603737fc0b6914d98824b1e11a4e),
+[wordpuzzle](./wordpuzzle.py) used a partial function to validate the letters
+argument. There is an easier, more direct way to do this.
+
+```python
+from functools import partial
+
+def arg_test(arg_test_func, param):
+    '''Test if valid argument.
+
+    Args:
+        arg_test_func (func): Function to test argument
+        param : Argument to test
+
+    Returns:
+        param : the validated argument
+
+    Raises:
+        ArgumentTypeError : if argument invalid
+    '''
+    if not arg_test_func(param):
+        raise argparse.ArgumentTypeError(f"{param} invalid value")
+
+    return param
+
+#: Validate letters argument
+arg_letters = partial(arg_test, is_valid_letters)
+
+# Used by argparse argument declaration:
+PARSER.add_argument(
+    '-l',
+    '--letters',
+    help='letters to create words from (mandatory is first letter)',
+    type=arg_letters,
+    required=True,
+)
+```
+
 ## Tools Used
 
 These tools require Python 3.
