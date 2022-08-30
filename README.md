@@ -196,6 +196,7 @@ These tools require Python 3.
 
 ## Other Implementations
 
+- [Clojure](https://gitlab.com/frankhjung1/clojure-wordpuzzle)
 - [Haskell](https://gitlab.com/frankhjung1/haskell-wordpuzzle)
 - [Java](https://gitlab.com/frankhjung1/java-wordpuzzle)
 - [Kotlin](https://gitlab.com/frankhjung1/kotlin-wordpuzzle)

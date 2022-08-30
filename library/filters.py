@@ -11,7 +11,7 @@ def is_valid_size(size: int) -> bool:
 
 def is_valid_letters(letters: str) -> bool:
     """Must have 9 alphabetic, lowercase characters."""
-    return letters.isalpha() and len(letters) == 9 and letters.islower()
+    return len(letters) == 9 and letters.isalpha() and letters.islower()
 
 
 def is_valid_word(size: int, letters: list, word: str) -> bool:
