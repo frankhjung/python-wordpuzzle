@@ -4,13 +4,19 @@ Library: Solve 9 Letter Word Puzzle.
 """
 
 
-def is_valid_size(size: int) -> bool:
-    """Must have size in range from 1 to 9, inclusive."""
-    return 1 <= size <= 9
-
-
 def is_valid_letters(letters: str) -> bool:
-    """Must have 9 alphabetic, lowercase characters."""
+    """Must have 9 alphabetic, lowercase characters.
+
+    Parameters
+
+    letters : str
+        the letters that words can be made from
+
+    Returns
+
+    bool
+        true if letters are lowercase, false otherwise
+    """
     return len(letters) == 9 and letters.isalpha() and letters.islower()
 
 
@@ -20,7 +26,22 @@ def is_valid_word(size: int, letters: list, word: str) -> bool:
 
     The mandatory character is chosen as the first letter in the
     list of letters argument.
+
+    Parameters
+
+    size : int
+        minimum word size
+    letters : str
+        the letters that words can be made from
+    word : str
+        the dictionary word to check
+
+    Returns
+
+    bool
+        true if word is valid, false otherwise
     """
+    # word of the correct size
     if not size <= len(word) < 9:
         return False
 

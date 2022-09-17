@@ -9,30 +9,15 @@ Test word puzzle validation functions.
 from string import ascii_lowercase, printable
 
 from hypothesis import given
-from hypothesis.strategies import integers, text
+from hypothesis.strategies import text
 
-from library.filters import is_valid_letters, is_valid_size, is_valid_word
+from library.filters import is_valid_letters, is_valid_word
 
 ALPHABET = list(ascii_lowercase)
 MANDATORY = "c"
 LETTERS = list("adevrsoi")
 SIZE = 4
 BAD_LETTERS = list(set(ALPHABET).difference(set(LETTERS)))
-
-
-@given(integers(min_value=1, max_value=9))
-def test_valid_size(size: int) -> None:
-    assert is_valid_size(size)
-
-
-@given(integers(min_value=10))
-def test_size_too_large(size: int) -> None:
-    assert not is_valid_size(size)
-
-
-@given(integers(max_value=0))
-def test_size_to_small(size: int) -> None:
-    assert not is_valid_size(size)
 
 
 @given(text(min_size=1, max_size=SIZE - 1, alphabet=list(ascii_lowercase)))
