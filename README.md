@@ -1,10 +1,16 @@
 # Word Puzzle Python Solver
 
-This is a Python implementation of the 9-letter word puzzle.
+This is a Python implementation of the 9-letter word puzzle:
+
+- [Nine Letter Word](http://nineletterword.tompaton.com/adevcrsoi/)
+- [Your Word Life](http://www.yourwiselife.com.au/games/9-letter-word/)
+
+![nineletterword.tompaton.com](nineletterword.png)
+
+Here we are using a subset of the British dictionary from the
+[wbritish](https://packages.debian.org/sid/text/wbritish) package.
 
 ## Quick Start
-
-This project is built using Python 3.9.12.
 
 To get program help call:
 
@@ -26,16 +32,28 @@ varicose
 varicosed
 ```
 
+## Tools Used
+
+These tools required:
+
+- [black](https://github.com/psf/black) - format source files
+- [flake8](https://github.com/pycqa/flake8) - checks source files
+- [hypothesis](https://hypothesis.readthedocs.io/) - [QuickCheck](https://en.wikipedia.org/wiki/QuickCheck) style testing framework
+- [isort](https://pycqa.github.io/isort/)
+- [pylint](https://www.pylint.org/) - checks source files
+- [pytest](https://docs.pytest.org/) - unit tests, including [test coverage](https://pytest-cov.readthedocs.io/en/latest/)
+- [venv](https://docs.python.org/library/venv.html) - manage this projects environment
+
 ## Dictionary
 
 To build an English dictionary of valid words, use words from
 [wbritish-huge](http://wordlist.sourceforge.net/):
 
 ```bash
-egrep '^[[:lower:]]+$' /usr/share/dict/british-english-huge > dictionary
+egrep '^[[:lower:]]{1,9}$' /usr/share/dict/british-english-huge > dictionary
 ```
 
-### Virtual Environment
+## Virtual Environment
 
 To initialise the virtual environment, `venv`:
 
@@ -58,7 +76,7 @@ To end virtual environment session:
 deactivate
 ```
 
-### Dependent Packages
+## Dependent Packages
 
 Install and list packages:
 
@@ -68,7 +86,7 @@ pip3 list
 pip3 freeze
 ```
 
-### Format Code
+## Format
 
 To format code formatter using [Google Python Code
 Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md) using
@@ -78,7 +96,7 @@ Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md) using
 black *.py library/*.py tests/*.py
 ```
 
-### Lint Code
+## Lint
 
 Lint source files using both [flake8](https://github.com/pycqa/flake8) and
 [Pylint](https://www.pylint.org/):
@@ -88,7 +106,7 @@ flake8 *.py library/*.py tests/*.py
 pylint *.py library/*.py tests/*.py
 ```
 
-### Test application
+## Test
 
 Test using [PyTest](https://docs.pytest.org/):
 
@@ -96,7 +114,7 @@ Test using [PyTest](https://docs.pytest.org/):
 pytest -v --cov-report term-missing --cov=library tests
 ```
 
-### Run
+## Run
 
 Run application with:
 
@@ -104,7 +122,7 @@ Run application with:
 python3 wordpuzzle.py -s 7 -l cadevrsoi
 ```
 
-### Documentation
+## Documentation
 
 Get [pydoc](https://docs.python.org/3/library/pydoc.html) using:
 
@@ -171,25 +189,10 @@ PARSER.add_argument(
 )
 ```
 
-## Tools Used
-
-These tools require Python 3.
-
-- [black](https://github.com/psf/black) - format source files
-- [flake8](https://github.com/pycqa/flake8) - checks source files
-- [hypothesis](https://hypothesis.readthedocs.io/) - [QuickCheck](https://en.wikipedia.org/wiki/QuickCheck) style testing framework
-- [pylint](https://www.pylint.org/) - checks source files
-- [pytest](https://docs.pytest.org/) - unit tests
-- [venv](https://docs.python.org/library/venv.html) - manage this projects environment
-
-## LICENSE
-
-[GNU GPLv3 LICENSE](./LICENSE)
-
 ## References
 
 - [Hypothesis](https://hypothesis.works/)
-- [PyTest](https://docs.pytest.org/)
+- [Pytest](https://docs.pytest.org/)
 - [Python 3 Tutorial](https://docs.python.org/3/tutorial/)
 - [Python Code Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md)
 - [Virtual Environment Tutorial](https://realpython.com/python-virtual-environments-a-primer/)
@@ -202,3 +205,7 @@ These tools require Python 3.
 - [Kotlin](https://gitlab.com/frankhjung1/kotlin-wordpuzzle)
 - [Go](https://gitlab.com/frankhjung1/go-wordpuzzle)
 - [Python](https://gitlab.com/frankhjung1/python-wordpuzzle)
+
+## LICENSE
+
+[GNU GPLv3 LICENSE](./LICENSE)
