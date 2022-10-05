@@ -25,5 +25,6 @@ results.html
 *.swp
 tags
 target/
+.trunk/
 venv
 .vscode/
