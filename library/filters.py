@@ -20,11 +20,11 @@ def is_valid_letters(letters: str) -> bool:
     return len(letters) == 9 and letters.isalpha() and letters.islower()
 
 
-def is_valid_word(size: int, letters: list, word: str) -> bool:
+def is_valid_word(size: int, letters: list[str], word: str) -> bool:
     """Check that a dictionary word only contains valid letters
     and is of the correct size.
 
-    The mandatory character is chosen as the first letter in the
+    The mandatory character is chosen as the first letter in     the
     list of letters argument.
 
     Parameters
