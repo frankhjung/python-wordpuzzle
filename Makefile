@@ -57,7 +57,7 @@ lint:
 	pylint $(SRCS)
 
 test:
-	pytest -v --cov-report term-missing --cov=library tests
+	pytest -v --cov-report term-missing --cov=library tests/
 
 run:
 	$(PYTHON) wordpuzzle.py -s 7 -l cadevrsoi
