@@ -8,11 +8,13 @@ def is_valid_letters(letters: str) -> bool:
     """Must have 9 alphabetic, lowercase characters.
 
     Parameters
+    ----------
 
     letters : str
         the letters that words can be made from
 
     Returns
+    -------
 
     bool
         true if letters are lowercase, false otherwise
@@ -24,10 +26,11 @@ def is_valid_word(size: int, letters: list[str], word: str) -> bool:
     """Check that a dictionary word only contains valid letters
     and is of the correct size.
 
-    The mandatory character is chosen as the first letter in     the
-    list of letters argument.
+    The mandatory character is chosen as the first letter in the list of
+    letters argument.
 
     Parameters
+    ----------
 
     size : int
         minimum word size
@@ -37,6 +40,7 @@ def is_valid_word(size: int, letters: list[str], word: str) -> bool:
         the dictionary word to check
 
     Returns
+    -------
 
     bool
         true if word is valid, false otherwise

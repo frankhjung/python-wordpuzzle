@@ -55,19 +55,19 @@ egrep '^[[:lower:]]{1,9}$' /usr/share/dict/british-english-huge > dictionary
 
 ## Virtual Environment
 
-To initialise the virtual environment, `venv`:
+To initialise the virtual environment, `.venv`:
 
 ```bash
 pip3 install -U virtualenv
-python3 -m virtualenv venv
-source venv/bin/activate
+python3 -m virtualenv .venv
+source .venv/bin/activate
 pip3 install -Ur requirements.txt
 ```
 
 To start the virtual environment:
 
 ```bash
-source venv/bin/activate
+source .venv/bin/activate
 ```
 
 To end virtual environment session:

@@ -8,13 +8,13 @@ variables:
 cache:
   paths:
     - .cache/pip
-    - venv/
+    - .venv/
 
 before_script:
   - python -V
   - pip install virtualenv
-  - virtualenv venv
-  - source venv/bin/activate
+  - virtualenv .venv
+  - source .venv/bin/activate
   - pip install -Ur requirements.txt
   - echo isort $(isort --version-number)
   - black --version
