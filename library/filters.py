@@ -3,6 +3,8 @@
 Library: Solve 9 Letter Word Puzzle.
 """
 
+from collections import Counter
+
 
 def is_valid_letters(letters: str) -> bool:
     """Must have 9 alphabetic, lowercase characters.
@@ -54,11 +56,6 @@ def is_valid_word(size: int, letters: list[str], word: str) -> bool:
         return False
 
     # test all letters in word are valid
-    working = letters[:]  # deep copy of letters
-    result = True  # default if loop completes
-    for letter in word:
-        if letter in working:
-            working.remove(letter)
-        else:
-            result = False
-    return result
+    letter_counts = Counter(letters)
+    word_counts = Counter(word)
+    return all(word_counts[letter] <= letter_counts[letter] for letter in word_counts)
