@@ -24,14 +24,14 @@ def alphabetic_letters(value: str) -> str:
 #
 if __name__ == "__main__":
 
-    __version__ = "3.3.0"
+    __version__ = "3.4.0"
 
     # setup command line parser
     PARSER = argparse.ArgumentParser(
         prog=os.path.basename(sys.argv[0]),
         usage="%(prog)s [options]",
         description="Solve 9 letter word puzzle.",
-        epilog="© 2019-2022 Frank Jung mailto:frankhjung@linux.com",
+        epilog="© 2019-2023 Frank Jung mailto:frankhjung at linux.com",
     )
     PARSER.add_argument(
         "-d",
