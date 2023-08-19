@@ -12,13 +12,13 @@ Here we are using a subset of the British dictionary from the
 
 ## Quick Start
 
-To get program help call:
+To show program options call the program with the `-h` option:
 
 ```bash
 ./wordpuzzle.py -h
 ```
 
-Example call using parameters:
+Find all dictionary words of length 8 or more using the letters `cadevrsoi`:
 
 ```bash
 $ ./wordpuzzle.py -s 8 -l cadevrsoi
@@ -34,20 +34,22 @@ varicosed
 
 ## Tools Used
 
-These tools required:
+The tools [required](requirements.txt) to build and test this project are:
 
 - [black](https://github.com/psf/black) - format source files
 - [flake8](https://github.com/pycqa/flake8) - checks source files
 - [hypothesis](https://hypothesis.readthedocs.io/) - [QuickCheck](https://en.wikipedia.org/wiki/QuickCheck) style testing framework
-- [isort](https://pycqa.github.io/isort/)
-- [pylint](https://www.pylint.org/) - checks source files
-- [pytest](https://docs.pytest.org/) - unit tests, including [test coverage](https://pytest-cov.readthedocs.io/en/latest/)
+- [isort](https://pycqa.github.io/isort/) - sort imports
+- [pylint](https://www.pylint.org/) - lint source files
+- [pytest](https://docs.pytest.org/) - unit tests including [test coverage](https://pytest-cov.readthedocs.io/en/latest/)
 - [venv](https://docs.python.org/library/venv.html) - manage this projects environment
 
 ## Dictionary
 
-To build an English dictionary of valid words, use words from
-[wbritish-huge](http://wordlist.sourceforge.net/):
+This project requires a dictionary of valid words.
+By default the project uses a subset of the British dictionary from
+[wbritish-huge](http://wordlist.sourceforge.net/). Since this is a large file,
+and we need at most 9-letter words, we can create a smaller dictionary using:
 
 ```bash
 egrep '^[[:lower:]]{1,9}$' /usr/share/dict/british-english-huge > dictionary
@@ -122,6 +124,12 @@ Run application with:
 python3 wordpuzzle.py -s 7 -l cadevrsoi
 ```
 
+Or:
+
+```bash
+./wordpuzzle.py -s 7 -l cadevrsoi
+```
+
 ## Documentation
 
 Get [pydoc](https://docs.python.org/3/library/pydoc.html) using:
@@ -187,6 +195,16 @@ PARSER.add_argument(
     type=arg_letters,
     required=True,
 )
+```
+
+## Updating Packages
+
+Use `pip list --outdated` to show updates to packages.
+
+To update outdated packages, use:
+
+```bash
+pip3 list -o | cut -f1 -d' ' | tr " " "\n" | awk '{if(NR>=3)print}' | cut -d' ' -f1 | xargs -n1 pip3 install -U
 ```
 
 ## References

@@ -4,6 +4,7 @@ Library: Solve 9 Letter Word Puzzle.
 """
 
 from collections import Counter
+from re import match
 
 
 def is_valid_letters(letters: str) -> bool:
@@ -21,7 +22,7 @@ def is_valid_letters(letters: str) -> bool:
     bool
         true if letters are lowercase, false otherwise
     """
-    return len(letters) == 9 and letters.isalpha() and letters.islower()
+    return bool(match(r"^[a-z]{9}$", letters))
 
 
 def is_valid_word(size: int, letters: list[str], word: str) -> bool:
@@ -48,14 +49,14 @@ def is_valid_word(size: int, letters: list[str], word: str) -> bool:
         true if word is valid, false otherwise
     """
     # word of the correct size
-    if not size <= len(word) < 9:
+    if not size <= len(word) <= 9:
         return False
 
     # mandatory letter must be in word
     if letters[0] not in word:
         return False
 
-    # test all letters in word are valid
+    # check if all letters in the word can be formed from the letters list
     letter_counts = Counter(letters)
     word_counts = Counter(word)
     return all(word_counts[letter] <= letter_counts[letter] for letter in word_counts)

@@ -23,7 +23,6 @@ def alphabetic_letters(value: str) -> str:
 # MAIN
 #
 if __name__ == "__main__":
-
     __version__ = "3.5.0"
 
     # setup command line parser
@@ -60,11 +59,11 @@ if __name__ == "__main__":
         "--version", help="show version", action="version", version=__version__
     )
 
-    # process command line arguments and check they are all valid
+    # read command line arguments and check they are all valid
     ARGS = PARSER.parse_args()
     SIZE = int(ARGS.size)
     LETTERS = list(ARGS.letters)
     DICT = ARGS.dictionary.read().splitlines()
 
-    # read in dictionary and print word if valid
+    # read each word from the dictionary and print only valid words
     list(map(print, filter(lambda word: is_valid_word(SIZE, LETTERS, word), DICT)))

@@ -69,11 +69,8 @@ clean:
 	# clean generated artefacts
 	-$(RM) -rf cover
 	-$(RM) -rf .coverage
-	-$(RM) -rf public
 	-$(RM) -rf __pycache__ **/__pycache__
 	-$(RM) -rf .pytest_cache
-	-$(RM) -rf target
-	-$(RM) -v MANIFEST
 	-$(RM) -v **/*.pyc **/*.pyo **/*.py,cover
 	-$(RM) -v *.pyc *.pyo *.py,cover
 
