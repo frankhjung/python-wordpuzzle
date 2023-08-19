@@ -24,7 +24,7 @@ def alphabetic_letters(value: str) -> str:
 #
 if __name__ == "__main__":
 
-    __version__ = "3.4.0"
+    __version__ = "3.5.0"
 
     # setup command line parser
     PARSER = argparse.ArgumentParser(
