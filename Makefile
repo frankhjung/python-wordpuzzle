@@ -8,6 +8,7 @@ CTAGS	:= $(shell which ctags)
 PIP	:= $(shell which pip3)
 PYTHON	:= $(shell which python3)
 SRCS	:= $(wildcard *.py **/*.py)
+COVERAGE	:= 90
 
 default: check test
 
@@ -45,19 +46,27 @@ ifdef CTAGS
 endif
 
 style:
-	# sort imports
-	isort $(SRCS)
-	# format code to googles style
-	black -q $(SRCS)
+	ruff format
+	sort-requirements requirements.txt
 
 lint:
-	# check with flake8
-	flake8 $(SRCS)
-	# check with pylint
-	pylint $(SRCS)
+	ruff check \
+		--output-format grouped \
+		--fix $(SRCS)
 
 test:
-	pytest -v --cov-report term-missing --cov=library tests/
+	pytest --verbose --cov-fail-under=$(COVERAGE) library/ tests/
+
+doc:
+	pytest \
+		--junitxml=public/pytest_report.xml \
+      		--html=public/pytest_report.html \
+		--self-contained-html \
+      		--cov \
+      		--cov-report=xml \
+		--cov-report=html:public/coverage \
+		--cov-fail-under=$(COVERAGE)
+	pdoc library !tests -o public
 
 run:
 	$(PYTHON) wordpuzzle.py -s 7 -l cadevrsoi

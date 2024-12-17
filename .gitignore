@@ -5,6 +5,7 @@ build/
 *,cover
 cover
 .coverage
+coverage.xml
 dist/
 .DS_Store
 htmlcov/

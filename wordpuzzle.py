@@ -66,4 +66,4 @@ if __name__ == "__main__":
     DICT = ARGS.dictionary.read().splitlines()
 
     # read each word from the dictionary and print only valid words
-    list(map(print, filter(lambda word: is_valid_word(SIZE, LETTERS, word), DICT)))
+    list(map(print, filter(lambda word: is_valid_word(SIZE, LETTERS, word), DICT)))  # type: ignore
