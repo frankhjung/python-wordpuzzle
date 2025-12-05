@@ -3,52 +3,54 @@
 image: python:3.11-slim
 
 variables:
-  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  UV_CACHE_DIR: "$CI_PROJECT_DIR/.cache/uv"
   PACKAGE_NAME: library
 
 cache:
   paths:
-    - .cache/pip
+    - .cache/uv
     - .venv/
 
 .setup: &setup
   before_script:
-    - apt-get update -y && apt-get install -y jq shellcheck
+    - apt-get update -y && apt-get install -y curl jq shellcheck
+    - curl -LsSf https://astral.sh/uv/install.sh | sh
+    - export PATH="$HOME/.local/bin:$PATH"
     - python --version
-    - pip install --upgrade pip
-    - pip --version
-    - pip install --upgrade --requirement requirements.txt
-    - pip list --local
+    - uv --version
+    - uv sync
+    - uv pip list
 
 build:
   stage: build
   <<: *setup
   script:
     # check formatting
-    - ruff format --check
-    - sort-requirements --check requirements.txt
+    - uv run ruff format --check
     # check code quality
-    - ruff check --output-format gitlab --exit-zero
+    - uv run ruff check --output-format gitlab --exit-zero
       --output-file gl-code-quality-report.json
     # unit tests and code coverage
-    - pytest --junitxml=public/pytest_report.xml
+    - uv run pytest --junitxml=public/pytest_report.xml
       --html=public/pytest_report.html --self-contained-html
       --cov-report=xml --cov-report=html:public/coverage
       --cov --cov-fail-under=90
     # sast check for common security issues
-    - bandit --verbose --recursive --format json --exit-zero
+    - uv run bandit --verbose --recursive --format json --exit-zero
       --output public/bandit_sast_report.json
       ${PACKAGE_NAME}
       $( [ -r ".bandit.yaml" ] && echo "--configfile .bandit.yaml" )
     # Parse the JSON report and check if there are any high-severity issues
-    - HIGH_ISSUE_COUNT=$(jq '[.results[] | select(.issue_severity == "HIGH")] | length' public/bandit_sast_report.json)
+    - HIGH_ISSUE_COUNT=$(jq '[.results[] |
+        select(.issue_severity == "HIGH")] |
+        length' public/bandit_sast_report.json)
     - |
       if [ "${HIGH_ISSUE_COUNT}" -gt 0 ]; then
         echo "High-severity issues detected: ${HIGH_ISSUE_COUNT}"
         exit 1
       fi
     # generate badges
-    - genbadge tests
+    - uv run genbadge tests
       --input-file public/pytest_report.xml
       --output-file public/tests.svg
   # regex to get the coverage percentage from pytest (used for badge)

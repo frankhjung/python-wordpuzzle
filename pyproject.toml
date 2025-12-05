@@ -1,0 +1,63 @@
+[project]
+name = "wordpuzzle"
+version = "3.5.0"
+description = "Python implementation of the 9-letter word puzzle"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "Frank Jung", email = "frankhjung@linux.com" }]
+requires-python = ">=3.11"
+keywords = ["puzzle", "word", "game"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Games/Entertainment :: Puzzle Games",
+]
+
+[project.scripts]
+wordpuzzle = "wordpuzzle:main"
+
+[dependency-groups]
+dev = [
+    "anybadge>=1.16",
+    "bandit>=1.9",
+    "genbadge[tests]>=1.1",
+    "hypothesis>=6.148",
+    "pdoc>=16.0",
+    "pytest>=9.0",
+    "pytest-cov>=7.0",
+    "pytest-html>=4.1",
+    "python-docx>=1.2",
+    "ruff>=0.14",
+    "sort-requirements>=1.3",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=library --cov-report=term-missing"
+
+[tool.coverage.run]
+source = ["library"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = ["pragma: no cover", "if __name__ == .__main__.:"]

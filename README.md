@@ -15,7 +15,7 @@ Here we are using a subset of the British dictionary from the
 To show program options call the program with the `-h` option:
 
 ```bash
-./wordpuzzle.py -h
+uv run python wordpuzzle.py -h
 ```
 
 Find all dictionary words of length 8 or more using the letters `cadevrsoi`:
@@ -34,20 +34,19 @@ varicosed
 
 ## Tools Used
 
-The tools [required](requirements.txt) to build and test this project are:
+The tools required to build and test this project are managed via
+[uv](https://docs.astral.sh/uv/) and defined in
+[pyproject.toml](./pyproject.toml):
 
-- [black](https://github.com/psf/black) - format source files
-- [flake8](https://github.com/pycqa/flake8) - checks source files
 - [hypothesis](https://hypothesis.readthedocs.io/) - [QuickCheck](https://en.wikipedia.org/wiki/QuickCheck) style testing framework
-- [isort](https://pycqa.github.io/isort/) - sort imports
-- [pylint](https://www.pylint.org/) - lint source files
 - [pytest](https://docs.pytest.org/) - unit tests including [test coverage](https://pytest-cov.readthedocs.io/en/latest/)
-- [venv](https://docs.python.org/library/venv.html) - manage this projects environment
+- [ruff](https://github.com/astral-sh/ruff) - format and lint source files
+- [uv](https://docs.astral.sh/uv/) - manage this project's environment
 
 ## Dictionary
 
-This project requires a dictionary of valid words.
-By default the project uses a subset of the British dictionary from
+This project requires a dictionary of valid words. By default the project uses a
+subset of the British dictionary from
 [wbritish-huge](http://wordlist.sourceforge.net/). Since this is a large file,
 and we need at most 9-letter words, we can create a smaller dictionary using:
 
@@ -55,57 +54,39 @@ and we need at most 9-letter words, we can create a smaller dictionary using:
 egrep '^[[:lower:]]{1,9}$' /usr/share/dict/british-english-huge > dictionary
 ```
 
-## Virtual Environment
+## Environment Setup
 
-To initialise the virtual environment, `.venv`:
-
-```bash
-pip3 install -U virtualenv
-python3 -m virtualenv .venv
-source .venv/bin/activate
-pip3 install -Ur requirements.txt
-```
-
-To start the virtual environment:
+To initialise the development environment:
 
 ```bash
-source .venv/bin/activate
+uv sync
 ```
 
-To end virtual environment session:
-
-```bash
-deactivate
-```
+This creates a virtual environment and installs all dependencies from
+[pyproject.toml](./pyproject.toml).
 
 ## Dependent Packages
 
-Install and list packages:
+List installed packages:
 
 ```bash
-pip3 install -Ur requirements.txt
-pip3 list
-pip3 freeze
+uv pip list
 ```
 
 ## Format
 
-To format code formatter using [Google Python Code
-Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md) using
-[black](https://github.com/psf/black):
+To format code using [ruff](https://github.com/astral-sh/ruff):
 
 ```bash
-black *.py library/*.py tests/*.py
+uv run ruff format *.py library/*.py tests/*.py
 ```
 
 ## Lint
 
-Lint source files using both [flake8](https://github.com/pycqa/flake8) and
-[Pylint](https://www.pylint.org/):
+Lint source files using [ruff](https://github.com/astral-sh/ruff):
 
 ```bash
-flake8 *.py library/*.py tests/*.py
-pylint *.py library/*.py tests/*.py
+uv run ruff check *.py library/*.py tests/*.py
 ```
 
 ## Test
@@ -113,7 +94,7 @@ pylint *.py library/*.py tests/*.py
 Test using [PyTest](https://docs.pytest.org/):
 
 ```bash
-pytest -v --cov-report term-missing --cov=library tests
+uv run pytest -v --cov-report term-missing --cov=library tests
 ```
 
 ## Run
@@ -121,13 +102,7 @@ pytest -v --cov-report term-missing --cov=library tests
 Run application with:
 
 ```bash
-python3 wordpuzzle.py -s 7 -l cadevrsoi
-```
-
-Or:
-
-```bash
-./wordpuzzle.py -s 7 -l cadevrsoi
+uv run python wordpuzzle.py -s 7 -l cadevrsoi
 ```
 
 ## Documentation
@@ -199,12 +174,11 @@ PARSER.add_argument(
 
 ## Updating Packages
 
-Use `pip list --outdated` to show updates to packages.
-
-To update outdated packages, use:
+Update outdated packages by editing [pyproject.toml](./pyproject.toml) and
+running:
 
 ```bash
-pip3 list -o | cut -f1 -d' ' | tr " " "\n" | awk '{if(NR>=3)print}' | cut -d' ' -f1 | xargs -n1 pip3 install -U
+uv sync
 ```
 
 ## References
@@ -213,7 +187,7 @@ pip3 list -o | cut -f1 -d' ' | tr " " "\n" | awk '{if(NR>=3)print}' | cut -d' ' 
 - [Pytest](https://docs.pytest.org/)
 - [Python 3 Tutorial](https://docs.python.org/3/tutorial/)
 - [Python Code Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md)
-- [Virtual Environment Tutorial](https://realpython.com/python-virtual-environments-a-primer/)
+- [uv](https://docs.astral.sh/uv/)
 
 ## Other Implementations
 

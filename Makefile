@@ -5,7 +5,6 @@
 .DEFAULT_GOAL := default
 
 CTAGS	:= $(shell which ctags)
-PIP	:= $(shell which pip3)
 PYTHON	:= $(shell which python3)
 SRCS	:= $(wildcard *.py **/*.py)
 COVERAGE	:= 90
@@ -23,19 +22,15 @@ help:
 	@echo "  test:  run unit tests"
 	@echo "  clean: delete all generated files"
 	@echo
-	@echo "Initialise virtual environment (.venv) with:"
+	@echo "Initialise environment with:"
 	@echo
-	@echo "pip3 install -U virtualenv; python3 -m virtualenv .venv; source .venv/bin/activate; pip3 install -Ur requirements.txt"
+	@echo "  uv sync"
 	@echo
-	@echo "Start virtual environment (.venv) with:"
+	@echo "Run commands with:"
 	@echo
-	@echo "source .venv/bin/activate"
+	@echo "  uv run <command>"
 	@echo
-	@echo "Deactivate with:"
-	@echo
-	@echo "deactivate"
-	@echo
-	@$(PYTHON) wordpuzzle.py -h
+	@uv run python wordpuzzle.py -h
 
 check:	tags style lint
 
@@ -46,19 +41,19 @@ ifdef CTAGS
 endif
 
 style:
-	ruff format
-	sort-requirements requirements.txt
+	uv run ruff format
+	uv run sort-requirements requirements.txt 2>/dev/null || true
 
 lint:
-	ruff check \
+	uv run ruff check \
 		--output-format grouped \
 		--fix $(SRCS)
 
 test:
-	pytest --verbose --cov-fail-under=$(COVERAGE) library/ tests/
+	uv run pytest --verbose --cov-fail-under=$(COVERAGE) library/ tests/
 
 doc:
-	pytest \
+	uv run pytest \
 		--junitxml=public/pytest_report.xml \
       		--html=public/pytest_report.html \
 		--self-contained-html \
@@ -66,13 +61,13 @@ doc:
       		--cov-report=xml \
 		--cov-report=html:public/coverage \
 		--cov-fail-under=$(COVERAGE)
-	pdoc library !tests -o public
+	uv run pdoc library !tests -o public
 
 run:
-	$(PYTHON) wordpuzzle.py -s 7 -l cadevrsoi
+	uv run python wordpuzzle.py -s 7 -l cadevrsoi
 
 version:
-	$(PYTHON) wordpuzzle.py --version
+	uv run python wordpuzzle.py --version
 
 clean:
 	# clean generated artefacts

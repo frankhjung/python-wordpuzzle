@@ -6,52 +6,41 @@ on:
   push:
     branches:
       - master
-      - 'feature*'
+      - "feature*"
   schedule:
-    - cron: '0 0 * * *'  # daily
+    - cron: "0 0 * * *" # daily
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
 
       - name: setup
         run: |
-          python -m pip install --upgrade pip virtualenv
-          python -m virtualenv .venv
-          source .venv/bin/activate
-          pip install -U -r requirements.txt
-          echo isort $(isort --version-number)
-          black --version
-          flake8 --version
-          pylint --version
+          uv sync
+          uv pip list
 
       - name: check
         run: |
-          source .venv/bin/activate
-          isort --check --diff *.py library/*.py tests/*.py
-          black --check *.py library/*.py tests/*.py
-          flake8 *.py library/*.py tests/*.py
-          pylint *.py library/*.py tests/*.py
+          uv run ruff format --check *.py library/*.py tests/*.py
+          uv run ruff check *.py library/*.py tests/*.py
 
       - name: tests
-        run: |
-          source .venv/bin/activate
-          pytest -v --cov-report term-missing --cov=library tests
+        run: uv run pytest -v --cov-report term-missing --cov=library tests
 
       - name: run example
-        run: python wordpuzzle.py -s 7 -l cadevrsoi
+        run: uv run python wordpuzzle.py -s 7 -l cadevrsoi
 
       - name: run version
-        run: python wordpuzzle.py --version
+        run: uv run python wordpuzzle.py --version
 
       - name: run help
-        run: python wordpuzzle.py --help
+        run: uv run python wordpuzzle.py --help
