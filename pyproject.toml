@@ -25,13 +25,13 @@ dev = [
     "anybadge>=1.16",
     "bandit>=1.9",
     "genbadge[tests]>=1.1",
-    "hypothesis>=6.148",
+    "hypothesis>=6.151",
     "pdoc>=16.0",
     "pytest>=9.0",
     "pytest-cov>=7.0",
-    "pytest-html>=4.1",
+    "pytest-html>=4.2",
     "python-docx>=1.2",
-    "ruff>=0.14",
+    "ruff>=0.15",
     "sort-requirements>=1.3",
 ]
 

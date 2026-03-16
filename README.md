@@ -172,14 +172,21 @@ PARSER.add_argument(
 )
 ```
 
-## Updating Packages
+## Upgrading Outdated Packages
 
-Update outdated packages by editing [pyproject.toml](./pyproject.toml) and
-running:
+List outdated packages using:
 
 ```bash
-uv sync
+uv pip list --outdated
 ```
+
+To upgrade all packages to their latest versions:
+
+```bash
+uv sync --upgrade
+```
+
+Alternatively, edit [pyproject.toml](./pyproject.toml) and run `uv sync`.
 
 ## References
 
