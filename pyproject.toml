@@ -1,6 +1,6 @@
 [project]
 name = "wordpuzzle"
-version = "3.5.0"
+version = "3.5.1"
 description = "Python implementation of the 9-letter word puzzle"
 readme = "README.md"
 license = { file = "LICENSE" }
