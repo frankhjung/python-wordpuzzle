@@ -19,27 +19,40 @@ def alphabetic_letters(value: str) -> str:
     return value
 
 
+def _get_version_from_pyproject() -> str:
+    """Return project version from pyproject.toml."""
+    import tomllib
+
+    pyproject_path = os.path.join(os.path.dirname(__file__), "pyproject.toml")
+    try:
+        with open(pyproject_path, "rb") as f:
+            data = tomllib.load(f)
+        return data.get("project", {}).get("version", "0.0.0")
+    except (FileNotFoundError, tomllib.TOMLDecodeError):
+        return "0.0.0"
+
+
 #
 # MAIN
 #
 if __name__ == "__main__":
-    __version__ = "3.5.0"
+    __version__ = _get_version_from_pyproject()
 
     # setup command line parser
-    PARSER = argparse.ArgumentParser(
+    parser = argparse.ArgumentParser(
         prog=os.path.basename(sys.argv[0]),
         usage="%(prog)s [options]",
         description="Solve 9 letter word puzzle.",
         epilog="© 2019-2023 Frank Jung mailto:frankhjung at linux.com",
     )
-    PARSER.add_argument(
+    parser.add_argument(
         "-d",
         "--dictionary",
         help="dictionary to use in word search (default: dictionary)",
         type=argparse.FileType(mode="r", encoding="utf-8"),
         default="dictionary",
     )
-    PARSER.add_argument(
+    parser.add_argument(
         "-s",
         "--size",
         help="minimum word size (default: 4). Valid sizes are from 1 to 9.",
@@ -48,19 +61,19 @@ if __name__ == "__main__":
         metavar="SIZE",
         default=4,
     )
-    PARSER.add_argument(
+    parser.add_argument(
         "-l",
         "--letters",
         help="letters to make words, where the mandatory is first letter)",
         type=alphabetic_letters,
         required=True,
     )
-    PARSER.add_argument(
+    parser.add_argument(
         "--version", help="show version", action="version", version=__version__
     )
 
     # read command line arguments and check they are all valid
-    ARGS = PARSER.parse_args()
+    ARGS = parser.parse_args()
     SIZE = int(ARGS.size)
     LETTERS = list(ARGS.letters)
     DICT = ARGS.dictionary.read().splitlines()

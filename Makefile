@@ -13,7 +13,7 @@ default: check test ## Default goal: check style and lint code, then run unit te
 
 all:	default run ## Run all checks, then run against test data
 
-help:
+help: ## Show this help message
 	@echo ""
 	@echo "Default goal: ${.DEFAULT_GOAL}"
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n\nTargets:\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
@@ -26,7 +26,7 @@ help:
 	@echo ""
 	@echo "  uv run <command>"
 	@echo ""
-	@uv run python wordpuzzle.py -h
+	uv run python -m wordpuzzle -h
 
 check:	tags style lint ## Check code style and lint
 
