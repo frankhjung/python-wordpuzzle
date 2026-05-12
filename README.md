@@ -38,8 +38,10 @@ The tools required to build and test this project are managed via
 [uv](https://docs.astral.sh/uv/) and defined in
 [pyproject.toml](./pyproject.toml):
 
-- [hypothesis](https://hypothesis.readthedocs.io/) - [QuickCheck](https://en.wikipedia.org/wiki/QuickCheck) style testing framework
-- [pytest](https://docs.pytest.org/) - unit tests including [test coverage](https://pytest-cov.readthedocs.io/en/latest/)
+- [hypothesis](https://hypothesis.readthedocs.io/) -
+  [QuickCheck](https://en.wikipedia.org/wiki/QuickCheck) style testing framework
+- [pytest](https://docs.pytest.org/) - unit tests including
+  [test coverage](https://pytest-cov.readthedocs.io/en/latest/)
 - [ruff](https://github.com/astral-sh/ruff) - format and lint source files
 - [uv](https://docs.astral.sh/uv/) - manage this project's environment
 
@@ -110,9 +112,20 @@ uv run python wordpuzzle.py -s 7 -l cadevrsoi
 Get [pydoc](https://docs.python.org/3/library/pydoc.html) using:
 
 ```bash
-pydoc wordpuzzle
-pydoc library.filters
+uv run python -m pydoc wordpuzzle
+uv run python -m pydoc library.domain
+uv run python -m pydoc library.filters
 ```
+
+## Architecture
+
+This project follows a **pure core, effectful shell** architecture:
+
+- **library/domain.py**: Contains the `Puzzle` domain object and the `solve`
+  function. This is the pure core where all solving logic resides.
+- **wordpuzzle.py**: The effectful shell that handles command-line arguments,
+  file I/O (streaming the dictionary), and printing results.
+- **library/filters.py**: A backward-compatible wrapper around the domain logic.
 
 ## Build and run from Docker
 
@@ -190,6 +203,7 @@ Alternatively, edit [pyproject.toml](./pyproject.toml) and run `uv sync`.
 
 ## References
 
+- [Glossary](./GLOSSARY.md)
 - [Hypothesis](https://hypothesis.works/)
 - [Pytest](https://docs.pytest.org/)
 - [Python 3 Tutorial](https://docs.python.org/3/tutorial/)

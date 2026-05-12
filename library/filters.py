@@ -3,8 +3,7 @@
 Library: Solve 9 Letter Word Puzzle.
 """
 
-from collections import Counter
-from re import match
+from library.domain import Puzzle
 
 
 def is_valid_letters(letters: str) -> bool:
@@ -22,7 +21,11 @@ def is_valid_letters(letters: str) -> bool:
     bool
         true if letters are lowercase, false otherwise
     """
-    return bool(match(r"^[a-z]{9}$", letters))
+    try:
+        Puzzle(letters=letters, min_size=4)
+        return True
+    except ValueError:
+        return False
 
 
 def is_valid_word(size: int, letters: list[str], word: str) -> bool:
@@ -37,7 +40,7 @@ def is_valid_word(size: int, letters: list[str], word: str) -> bool:
 
     size : int
         minimum word size
-    letters : str
+    letters : list[str]
         the letters that words can be made from
     word : str
         the dictionary word to check
@@ -48,15 +51,10 @@ def is_valid_word(size: int, letters: list[str], word: str) -> bool:
     bool
         true if word is valid, false otherwise
     """
-    # word of the correct size
-    if not size <= len(word) <= 9:
+    try:
+        # Join letters if passed as a list
+        letters_str = "".join(letters)
+        puzzle = Puzzle(letters=letters_str, min_size=size)
+        return puzzle.matches(word)
+    except ValueError:
         return False
-
-    # mandatory letter must be in word
-    if letters[0] not in word:
-        return False
-
-    # check if all letters in the word can be formed from the letters list
-    letter_counts = Counter(letters)
-    word_counts = Counter(word)
-    return all(word_counts[letter] <= letter_counts[letter] for letter in word_counts)

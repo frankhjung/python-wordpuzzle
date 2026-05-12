@@ -63,3 +63,7 @@ def test_max_valid_word(word: str) -> None:
 @given(text(min_size=SIZE, alphabet=BAD_LETTERS))
 def test_not_valid_words(word: str) -> None:
     assert not is_valid_word(SIZE, LETTERS, word)
+
+
+def test_is_valid_word_invalid_letters() -> None:
+    assert not is_valid_word(SIZE, ["a", "b", "c"], "word")

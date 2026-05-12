@@ -7,16 +7,7 @@ import argparse
 import os.path
 import sys
 
-from library.filters import is_valid_letters, is_valid_word
-
-
-def alphabetic_letters(value: str) -> str:
-    """Valid only if 9 lowercase alphabetic characters."""
-    if not is_valid_letters(value):
-        raise argparse.ArgumentTypeError(
-            f"'{value}' not 9 lowercase alphabetic characters"
-        )
-    return value
+from library.domain import Puzzle, solve
 
 
 def _get_version_from_pyproject() -> str:
@@ -65,7 +56,7 @@ if __name__ == "__main__":
         "-l",
         "--letters",
         help="letters to make words, where the mandatory is first letter)",
-        type=alphabetic_letters,
+        type=str,
         required=True,
     )
     parser.add_argument(
@@ -74,9 +65,14 @@ if __name__ == "__main__":
 
     # read command line arguments and check they are all valid
     ARGS = parser.parse_args()
-    SIZE = int(ARGS.size)
-    LETTERS = list(ARGS.letters)
-    DICT = ARGS.dictionary.read().splitlines()
+
+    try:
+        puzzle = Puzzle(letters=ARGS.letters, min_size=ARGS.size)
+    except ValueError as e:
+        parser.error(str(e))
 
     # read each word from the dictionary and print only valid words
-    list(map(print, filter(lambda word: is_valid_word(SIZE, LETTERS, word), DICT)))  # type: ignore
+    # Use rstrip() to remove newlines from file iterator
+    dictionary = (line.rstrip() for line in ARGS.dictionary)
+    for word in solve(puzzle, dictionary):
+        print(word)
