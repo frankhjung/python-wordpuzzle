@@ -26,8 +26,9 @@ def _get_version_from_pyproject() -> str:
 #
 # MAIN
 #
-if __name__ == "__main__":
-    __version__ = _get_version_from_pyproject()
+def main() -> None:
+    """Solve the 9-letter word puzzle from command-line arguments."""
+    version = _get_version_from_pyproject()
 
     # setup command line parser
     parser = argparse.ArgumentParser(
@@ -60,19 +61,23 @@ if __name__ == "__main__":
         required=True,
     )
     parser.add_argument(
-        "--version", help="show version", action="version", version=__version__
+        "--version", help="show version", action="version", version=version
     )
 
     # read command line arguments and check they are all valid
-    ARGS = parser.parse_args()
+    args = parser.parse_args()
 
     try:
-        puzzle = Puzzle(letters=ARGS.letters, min_size=ARGS.size)
+        puzzle = Puzzle(letters=args.letters, min_size=args.size)
     except ValueError as e:
         parser.error(str(e))
 
     # read each word from the dictionary and print only valid words
     # Use rstrip() to remove newlines from file iterator
-    dictionary = (line.rstrip() for line in ARGS.dictionary)
+    dictionary = (line.rstrip() for line in args.dictionary)
     for word in solve(puzzle, dictionary):
         print(word)
+
+
+if __name__ == "__main__":
+    main()

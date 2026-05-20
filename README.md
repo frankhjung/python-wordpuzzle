@@ -2,13 +2,13 @@
 
 This is a Python implementation of the 9-letter word puzzle:
 
-- [Nine Letter Word](http://nineletterword.tompaton.com/adevcrsoi/)
-- [Your Word Life](http://www.yourwiselife.com.au/games/9-letter-word/)
+- [Nine Letter Word][nine-letter-word]
+- [Your Word Life][your-word-life]
 
 ![nineletterword.tompaton.com](nineletterword.png)
 
 Here we are using a subset of the British dictionary from the
-[wbritish](https://packages.debian.org/sid/text/wbritish) package.
+[wbritish][wbritish] package.
 
 ## Quick Start
 
@@ -35,22 +35,21 @@ varicosed
 ## Tools Used
 
 The tools required to build and test this project are managed via
-[uv](https://docs.astral.sh/uv/) and defined in
-[pyproject.toml](./pyproject.toml):
+[uv][uv-docs] and defined in [pyproject.toml](./pyproject.toml):
 
-- [hypothesis](https://hypothesis.readthedocs.io/) -
-  [QuickCheck](https://en.wikipedia.org/wiki/QuickCheck) style testing framework
-- [pytest](https://docs.pytest.org/) - unit tests including
-  [test coverage](https://pytest-cov.readthedocs.io/en/latest/)
-- [ruff](https://github.com/astral-sh/ruff) - format and lint source files
-- [uv](https://docs.astral.sh/uv/) - manage this project's environment
+- [hypothesis][hypothesis-docs] -
+  [QuickCheck][quickcheck-wiki] style testing framework
+- [pytest][pytest-docs] - unit tests including
+  [test coverage][pytest-cov-docs]
+- [ruff][ruff-repo] - format and lint source files
+- [uv][uv-docs] - manage this project's environment
 
 ## Dictionary
 
 This project requires a dictionary of valid words. By default the project uses a
-subset of the British dictionary from
-[wbritish-huge](http://wordlist.sourceforge.net/). Since this is a large file,
-and we need at most 9-letter words, we can create a smaller dictionary using:
+subset of the British dictionary from [wbritish-huge][wbritish-huge-site]. Since
+this is a large file, and we need at most 9-letter words, we can create a
+smaller dictionary using:
 
 ```bash
 egrep '^[[:lower:]]{1,9}$' /usr/share/dict/british-english-huge > dictionary
@@ -77,7 +76,7 @@ uv pip list
 
 ## Format
 
-To format code using [ruff](https://github.com/astral-sh/ruff):
+To format code using [ruff][ruff-repo]:
 
 ```bash
 uv run ruff format *.py library/*.py tests/*.py
@@ -85,7 +84,7 @@ uv run ruff format *.py library/*.py tests/*.py
 
 ## Lint
 
-Lint source files using [ruff](https://github.com/astral-sh/ruff):
+Lint source files using [ruff][ruff-repo]:
 
 ```bash
 uv run ruff check *.py library/*.py tests/*.py
@@ -93,7 +92,7 @@ uv run ruff check *.py library/*.py tests/*.py
 
 ## Test
 
-Test using [PyTest](https://docs.pytest.org/):
+Test using [PyTest][pytest-docs]:
 
 ```bash
 uv run pytest -v --cov-report term-missing --cov=library tests
@@ -109,7 +108,7 @@ uv run python wordpuzzle.py -s 7 -l cadevrsoi
 
 ## Documentation
 
-Get [pydoc](https://docs.python.org/3/library/pydoc.html) using:
+Get [pydoc][pydoc-docs] using:
 
 ```bash
 uv run python -m pydoc wordpuzzle
@@ -125,31 +124,36 @@ This project follows a **pure core, effectful shell** architecture:
   function. This is the pure core where all solving logic resides.
 - **wordpuzzle.py**: The effectful shell that handles command-line arguments,
   file I/O (streaming the dictionary), and printing results.
-- **library/filters.py**: A backward-compatible wrapper around the domain logic.
+- **library/filters.py**: A backward-compatible wrapper around the domain
+  logic.
 
 ## Build and run from Docker
 
-To run using my Docker image first install the default dictionary:
+To run using the Docker image, ensure a dictionary is present (a default
+dictionary is already included in the workspace). If you need to download a
+custom dictionary, you can run:
 
 ```bash
-curl https://raw.githubusercontent.com/dwyl/english-words/master/words.txt -o dictionary
+curl -L \
+  https://raw.githubusercontent.com/dwyl/english-words/master/words.txt \
+  -o dictionary
 ```
 
-Then call the application using GNU make:
+Then run the application using GNU Make:
 
 ```bash
-docker run --rm -t -v $PWD:/opt/workspace -u $(id -u):$(id -g) frankhjung/python:latest make exec
+docker run --rm -t -v "$PWD":/opt/workspace -u "$(id -u):$(id -g)" \
+  frankhjung/python:latest make run
 ```
 
-This will call the `exec` goal, which executes the application using the default
+This will call the `run` goal, which executes the application using the default
 dictionary.
 
 ## Partial functions
 
-In an older commit,
-[4c3e0acf](https://gitlab.com/frankhjung1/python-wordpuzzle/-/tree/4c3e0acff3dd603737fc0b6914d98824b1e11a4e),
-[wordpuzzle](./wordpuzzle.py) used a partial function to validate the letters
-argument. There is an easier, more direct way to do this.
+In an older commit, [4c3e0acf][commit-4c3e0acf], [wordpuzzle.py][wordpuzzle-py]
+used a partial function to validate the letters argument. There is an easier,
+more direct way to do this.
 
 ```python
 from functools import partial
@@ -203,22 +207,48 @@ Alternatively, edit [pyproject.toml](./pyproject.toml) and run `uv sync`.
 
 ## References
 
-- [Glossary](./GLOSSARY.md)
-- [Hypothesis](https://hypothesis.works/)
-- [Pytest](https://docs.pytest.org/)
-- [Python 3 Tutorial](https://docs.python.org/3/tutorial/)
-- [Python Code Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md)
-- [uv](https://docs.astral.sh/uv/)
+- [Glossary][glossary-md]
+- [Hypothesis][hypothesis-works]
+- [Pytest][pytest-docs]
+- [Python 3 Tutorial][python-3-tutorial]
+- [Python Code Style][python-code-style]
+- [uv][uv-docs]
 
 ## Other Implementations
 
-- [Clojure](https://gitlab.com/frankhjung1/clojure-wordpuzzle)
-- [Haskell](https://gitlab.com/frankhjung1/haskell-wordpuzzle)
-- [Java](https://gitlab.com/frankhjung1/java-wordpuzzle)
-- [Kotlin](https://gitlab.com/frankhjung1/kotlin-wordpuzzle)
-- [Go](https://gitlab.com/frankhjung1/go-wordpuzzle)
-- [Python](https://gitlab.com/frankhjung1/python-wordpuzzle)
+- [Clojure][clojure-puzzle]
+- [Haskell][haskell-puzzle]
+- [Java][java-puzzle]
+- [Kotlin][kotlin-puzzle]
+- [Go][go-puzzle]
+- [Python][python-puzzle]
 
 ## LICENSE
 
 [GNU GPLv3 LICENSE](./LICENSE)
+
+[nine-letter-word]: http://nineletterword.tompaton.com/adevcrsoi/
+[your-word-life]: http://www.yourwiselife.com.au/games/9-letter-word/
+[wbritish]: https://packages.debian.org/sid/text/wbritish
+[uv-docs]: https://docs.astral.sh/uv/
+[hypothesis-docs]: https://hypothesis.readthedocs.io/
+[quickcheck-wiki]: https://en.wikipedia.org/wiki/QuickCheck
+[pytest-docs]: https://docs.pytest.org/
+[pytest-cov-docs]: https://pytest-cov.readthedocs.io/en/latest/
+[ruff-repo]: https://github.com/astral-sh/ruff
+[wbritish-huge-site]: http://wordlist.sourceforge.net/
+[pydoc-docs]: https://docs.python.org/3/library/pydoc.html
+[commit-4c3e0acf]:
+  https://gitlab.com/frankhjung1/python-wordpuzzle/-/tree/4c3e0acff3dd603737fc0b6914d98824b1e11a4e
+[wordpuzzle-py]: ./wordpuzzle.py
+[glossary-md]: ./GLOSSARY.md
+[hypothesis-works]: https://hypothesis.works/
+[python-3-tutorial]: https://docs.python.org/3/tutorial/
+[python-code-style]:
+  https://github.com/google/styleguide/blob/gh-pages/pyguide.md
+[clojure-puzzle]: https://gitlab.com/frankhjung1/clojure-wordpuzzle
+[haskell-puzzle]: https://gitlab.com/frankhjung1/haskell-wordpuzzle
+[java-puzzle]: https://gitlab.com/frankhjung1/java-wordpuzzle
+[kotlin-puzzle]: https://gitlab.com/frankhjung1/kotlin-wordpuzzle
+[go-puzzle]: https://gitlab.com/frankhjung1/go-wordpuzzle
+[python-puzzle]: https://gitlab.com/frankhjung1/python-wordpuzzle
