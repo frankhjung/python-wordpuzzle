@@ -38,7 +38,6 @@ endif
 
 style: ## Check code style
 	uv run ruff format
-	uv run sort-requirements requirements.txt 2>/dev/null || true
 
 lint: ## Check code style and lint
 	uv run ruff check \

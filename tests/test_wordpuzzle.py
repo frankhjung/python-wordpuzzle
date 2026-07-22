@@ -1,10 +1,4 @@
-#!/usr/bin/env python3
-# pylint: disable=C0111
-# pylint: disable=R0801
-# pylint: disable=R0904
-"""
-Test word puzzle validation functions.
-"""
+"""Test word puzzle validation functions."""
 
 from string import ascii_lowercase, printable
 
