@@ -2,7 +2,7 @@
 
 ## Puzzle
 
-A 9-letter word puzzle defined by a set of available letters and a minimum word
+A word puzzles defined by a set of available letters and a minimum word
 length. The first letter in the set is mandatory.
 
 ## Dictionary
