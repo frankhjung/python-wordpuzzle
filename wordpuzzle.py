@@ -27,21 +27,21 @@ def _get_version_from_pyproject() -> str:
 # MAIN
 #
 def main() -> None:
-    """Solve the 9-letter word puzzle from command-line arguments."""
+    """Solve the word puzzles from command-line arguments."""
     version = _get_version_from_pyproject()
 
     # setup command line parser
     parser = argparse.ArgumentParser(
         prog=os.path.basename(sys.argv[0]),
         usage="%(prog)s [options]",
-        description="Solve 9 letter word puzzle.",
-        epilog="© 2019-2023 Frank Jung mailto:frankhjung at linux.com",
+        description="Solve word puzzles.",
+        epilog="© 2019-2026 Frank Jung mailto:frankhjung at linux.com",
     )
     parser.add_argument(
         "-d",
         "--dictionary",
         help="dictionary to use in word search (default: dictionary)",
-        type=argparse.FileType(mode="r", encoding="utf-8"),
+        type=str,
         default="dictionary",
     )
     parser.add_argument(
@@ -74,9 +74,13 @@ def main() -> None:
 
     # read each word from the dictionary and print only valid words
     # Use rstrip() to remove newlines from file iterator
-    dictionary = (line.rstrip() for line in args.dictionary)
-    for word in solve(puzzle, dictionary):
-        print(word)
+    try:
+        with open(args.dictionary, encoding="utf-8") as dict_file:
+            dictionary = (line.rstrip() for line in dict_file)
+            for word in solve(puzzle, dictionary):
+                print(word)
+    except OSError as e:
+        parser.error(f"Cannot open dictionary: {e}")
 
 
 if __name__ == "__main__":
