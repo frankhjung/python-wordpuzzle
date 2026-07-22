@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Library: Solve 9 Letter Word Puzzle.
-"""
+"""Library: Solve 9 Letter Word Puzzle."""
 
 from library.domain import Puzzle
 

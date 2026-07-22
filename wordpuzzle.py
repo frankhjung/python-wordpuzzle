@@ -4,8 +4,8 @@ Solve 9 Letter Word Puzzle.
 """
 
 import argparse
-import os.path
 import sys
+from pathlib import Path
 
 from library.domain import Puzzle, solve
 
@@ -14,9 +14,9 @@ def _get_version_from_pyproject() -> str:
     """Return project version from pyproject.toml."""
     import tomllib
 
-    pyproject_path = os.path.join(os.path.dirname(__file__), "pyproject.toml")
+    pyproject_path = Path(__file__).parent / "pyproject.toml"
     try:
-        with open(pyproject_path, "rb") as f:
+        with pyproject_path.open("rb") as f:
             data = tomllib.load(f)
         return data.get("project", {}).get("version", "0.0.0")
     except (FileNotFoundError, tomllib.TOMLDecodeError):
@@ -32,9 +32,9 @@ def main() -> None:
 
     # setup command line parser
     parser = argparse.ArgumentParser(
-        prog=os.path.basename(sys.argv[0]),
+        prog=Path(sys.argv[0]).name,
         usage="%(prog)s [options]",
-        description="Solve word puzzles.",
+        description="Solve 9 letter word puzzle.",
         epilog="© 2019-2026 Frank Jung mailto:frankhjung at linux.com",
     )
     parser.add_argument(
@@ -75,7 +75,7 @@ def main() -> None:
     # read each word from the dictionary and print only valid words
     # Use rstrip() to remove newlines from file iterator
     try:
-        with open(args.dictionary, encoding="utf-8") as dict_file:
+        with Path(args.dictionary).open(encoding="utf-8") as dict_file:
             dictionary = (line.rstrip() for line in dict_file)
             for word in solve(puzzle, dictionary):
                 print(word)
